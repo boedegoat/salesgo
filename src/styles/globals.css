@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-slate-400 {
+    @apply dark:text-slate-300;
+}
+
+@layer base {
+    body {
+        @apply dark:bg-slate-900 dark:text-slate-300;
+    }
+}
+
+@layer utilities {
+    .wrapper {
+        @apply container px-5 mx-auto;
+    }
+}
