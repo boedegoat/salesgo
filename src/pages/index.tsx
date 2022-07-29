@@ -12,7 +12,7 @@ const Home = () => {
             <Progress />
             <StoreDestinations />
             {/* temp quote */}
-            <div className="my-5 wrapper">
+            <div className="mt-20 mb-5 wrapper">
                 <img
                     src="/images/illustration/on-the-way.svg"
                     alt="on the way"

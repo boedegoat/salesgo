@@ -14,7 +14,7 @@ const Progress = () => {
                 <div className="mt-2 h-4 bg-slate-100 rounded-lg">
                     <div className="h-full w-[30%] bg-teal-500 rounded-lg flex items-center">
                         <span className="ml-2 text-[10px] font-bold text-white">
-                            1/10
+                            1/3
                         </span>
                     </div>
                 </div>

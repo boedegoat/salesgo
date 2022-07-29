@@ -32,7 +32,11 @@ const getDistance = ({ current, destination, unit }: GetDistance) => {
     return dist;
 };
 
-export const checkInHandler = () => {
+export const checkInHandler = ({
+    destination,
+}: {
+    destination: Coordinates;
+}) => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             // on success
@@ -44,15 +48,7 @@ export const checkInHandler = () => {
                         latitude,
                         longitude,
                     },
-                    destination: {
-                        // sma pj
-                        // latitude: -6.276715755672075,
-                        // longitude: 106.69677039951125,
-
-                        // carissa
-                        latitude: -6.2526314018845355,
-                        longitude: 106.67422235866543,
-                    },
+                    destination,
                 };
 
                 const distanceKm = getDistance({

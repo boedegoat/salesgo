@@ -3,123 +3,111 @@ import { ChevronRightIcon, LoginIcon, MapIcon } from "@heroicons/react/outline";
 import { PageLink } from "@/components";
 import { checkInHandler } from "@/utils/location";
 
-const actionButtons = [
+const dummyStores = [
     {
-        label: "Maps",
-        Icon: MapIcon,
-        className: "flex-[1] text-slate-600 dark:text-slate-300",
+        nama: "Toko Bu Antin",
+        alamat: "Pondok Aren, Tangerang Selatan",
+        mapsLink:
+            "https://www.google.co.id/maps/place/Jl.+Carissa+IX+No.28,+Pd.+Jagung+Tim.,+Kec.+Serpong+Utara,+Kota+Tangerang+Selatan,+Banten+15326/@-6.2526441,106.6736765,19z/data=!3m1!4b1!4m12!1m6!3m5!1s0x2e69fb2e7c896979:0xf894de8e5c3dc986!2sGraha+Raya+Bintaro+CLUSTER+CARISSA!8m2!3d-6.2518195!4d106.6737048!3m4!1s0x2e69fbb29cf48b0f:0xbb6e48f8f8664360!8m2!3d-6.2526454!4d106.6742237",
+        coords: {
+            latitude: -6.2526314018845355,
+            longitude: 106.67422235866543,
+        },
     },
     {
-        label: "Check In",
-        Icon: LoginIcon,
-        className:
-            "flex-[2] bg-teal-100 text-teal-700 dark:bg-slate-700 dark:text-teal-400",
-        onClick: checkInHandler,
+        nama: "Toko Si Udin",
+        alamat: "Dukuh samping, Jakarta Pusat",
+        coords: {
+            latitude: -6.2526314018845355,
+            longitude: 106.67422235866543,
+        },
+    },
+    {
+        nama: "Toko Pak Alek",
+        alamat: "Senopati, Jakrta Selatan",
+        coords: {
+            latitude: -6.2526314018845355,
+            longitude: 106.67422235866543,
+        },
     },
 ];
 
 const StoreDestinations = () => {
     return (
-        <div className="mt-5 pl-5">
-            <div className="flex pb-10 space-x-4 overflow-auto scrollbar-hide snap-x snap-mandatory">
+        <div className="my-5 pl-5">
+            <div className="flex space-x-4 overflow-auto scrollbar-hide snap-x snap-mandatory">
                 {/* TODO: kalo di klik -> tampilin modal */}
                 {/* isi modalnya : gambar toko, nama, alamat, pemilik */}
-                <div className="w-[91%] snap-start flex-shrink-0 rounded-xl overflow-hidden shadow-xl">
-                    <PageLink
-                        href="#"
-                        className="h-[150px] flex flex-col p-3 bg-teal-500 text-white"
+                {dummyStores.map((store, index) => (
+                    <div
+                        key={store.nama}
+                        className="w-[91%] snap-start flex-shrink-0 rounded-xl overflow-hidden border"
                     >
-                        <h3 className="font-medium text-teal-50 mb-5 flex items-center justify-between">
-                            <span>📍 Kunjungan saat ini (1/3)</span>
-                            <ChevronRightIcon className="w-5 h-5" />
-                        </h3>
-                        <h1 className="mt-auto text-2xl font-bold truncate">
-                            Toko Biasa Saja Namun Rejeki Luar Biasa
-                        </h1>
-                        <p className="text-teal-50 text-sm">
-                            Pondok Aren, Tangerang Selatan
-                        </p>
-                    </PageLink>
-                    <div className="p-3 dark:bg-slate-800 flex space-x-2">
-                        {actionButtons.map((action) => (
-                            <button
-                                onClick={action.onClick}
-                                key={action.label}
-                                className={cn(
-                                    "w-full py-2 flex items-center justify-center font-semibold rounded-lg",
-                                    action.className
-                                )}
-                            >
-                                <action.Icon className="w-5 h-5 mr-2" />{" "}
-                                {action.label}
-                            </button>
-                        ))}
-                    </div>
-                </div>
+                        <PageLink
+                            href="#"
+                            className="h-[150px] flex flex-col p-3 bg-teal-500 text-white"
+                        >
+                            {/* top header */}
+                            <h3 className="font-medium text-teal-50 mb-5 flex items-center justify-between">
+                                <span>
+                                    📍 Kunjungan{" "}
+                                    {index === 0
+                                        ? "saat ini"
+                                        : index + 1 === dummyStores.length
+                                        ? "terakhir"
+                                        : ""}{" "}
+                                    ({index + 1}/{dummyStores.length})
+                                </span>
+                                <ChevronRightIcon className="w-5 h-5" />
+                            </h3>
 
-                {/* <div className="w-[91%] snap-start flex-shrink-0 rounded-xl overflow-hidden shadow-xl">
-                    <PageLink
-                        href="#"
-                        className="h-[150px] flex flex-col p-3 bg-teal-500 text-white"
-                    >
-                        <h3 className="font-medium text-teal-50 mb-5 flex items-center justify-between">
-                            <span>📍 Kunjungan (2/3)</span>
-                            <ChevronRightIcon className="w-5 h-5" />
-                        </h3>
-                        <h1 className="mt-auto text-2xl font-bold truncate">
-                            Toko Biasa Saja Namun Rejeki Luar Biasa
-                        </h1>
-                        <p className="text-teal-50 text-sm">
-                            Pondok Aren, Tangerang Selatan
-                        </p>
-                    </PageLink>
-                    <div className="p-3 dark:bg-slate-800 flex space-x-2">
-                        {actionButtons.slice(0, 1).map((action) => (
-                            <button
-                                key={action.label}
-                                className={cn(
-                                    "w-full py-2 flex items-center justify-center font-semibold rounded-lg",
-                                    action.className
-                                )}
-                            >
-                                <action.Icon className="w-5 h-5 mr-2" />{" "}
-                                {action.label}
-                            </button>
-                        ))}
-                    </div>
-                </div>
+                            {/* store name */}
+                            <h1 className="mt-auto text-2xl font-bold truncate flex items-center">
+                                <span>{store.nama}</span>
+                                <span className="text-lg text-teal-200 ml-2">
+                                    (1km)
+                                </span>
+                            </h1>
 
-                <div className="w-[91%] snap-start flex-shrink-0 rounded-xl overflow-hidden shadow-xl">
-                    <PageLink
-                        href="#"
-                        className="h-[150px] flex flex-col p-3 bg-teal-500 text-white"
-                    >
-                        <h3 className="font-medium text-teal-50 mb-5 flex items-center justify-between">
-                            <span>📍 Kunjungan terakhir (3/3)</span>
-                            <ChevronRightIcon className="w-5 h-5" />
-                        </h3>
-                        <h1 className="text-2xl font-bold mt-auto">
-                            Toko Mang Ujang
-                        </h1>
-                        <p className="text-teal-50 text-sm">
-                            Pondok Aren, Tangerang Selatan
-                        </p>
-                    </PageLink>
-                    <div className="p-3 dark:bg-slate-800 flex space-x-2">
-                        {actionButtons.slice(0, 1).map((action) => (
+                            {/* store address */}
+                            <p className="text-teal-50 text-sm">
+                                {store.alamat}
+                            </p>
+                        </PageLink>
+                        <div className="p-3 dark:bg-slate-800 flex space-x-2">
+                            {/* maps button */}
                             <button
-                                key={action.label}
+                                onClick={() => {
+                                    window.open(store.mapsLink, "_blank");
+                                }}
                                 className={cn(
                                     "w-full py-2 flex items-center justify-center font-semibold rounded-lg",
-                                    action.className
+                                    "flex-[1] text-slate-600 dark:text-slate-300"
                                 )}
                             >
-                                <action.Icon className="w-5 h-5 mr-2" />{" "}
-                                {action.label}
+                                <MapIcon className="w-5 h-5 mr-2" /> Maps
                             </button>
-                        ))}
+                            {/* check in button */}
+                            {/* TODO: change showing check in handler based from database */}
+                            {index === 0 && (
+                                <button
+                                    onClick={() =>
+                                        checkInHandler({
+                                            destination: store.coords,
+                                        })
+                                    }
+                                    className={cn(
+                                        "w-full py-2 flex items-center justify-center font-semibold rounded-lg",
+                                        "flex-[2] bg-teal-100 text-teal-700 dark:bg-slate-700 dark:text-teal-400"
+                                    )}
+                                >
+                                    <LoginIcon className="w-5 h-5 mr-2" /> Check
+                                    In
+                                </button>
+                            )}
+                        </div>
                     </div>
-                </div> */}
+                ))}
             </div>
         </div>
     );
