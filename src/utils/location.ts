@@ -62,14 +62,13 @@ export const checkInHandler = ({
                 console.log({
                     distanceKm,
                     arrived,
-                    current: coords.current,
-                    destination: coords.destination,
+                    coords,
                 });
 
                 alert(
                     arrived
                         ? "Check in berhasil"
-                        : "Anda belum ada di tujuan toko"
+                        : `Anda belum ada di tujuan toko\ncurrent latitude : ${coords.current.latitude}, longitude : ${coords.current.longitude}`
                 );
             },
 
