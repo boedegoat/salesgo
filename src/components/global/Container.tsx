@@ -1,21 +1,25 @@
 import Head from "next/head";
 import cn from "classnames";
+import Header from "./Header";
 
 interface Props {
     children: React.ReactNode;
     title?: string;
     wrapper?: boolean;
+    className?: string;
 }
 
-const Container = ({ children, title, wrapper }: Props) => {
+const Container = ({ children, title, wrapper, className }: Props) => {
     return (
-        <>
+        <main>
             <Head>
                 <title>{title}</title>
-                {/* TODO: add meta tags... */}
             </Head>
-            <main className={cn(wrapper && "wrapper")}>{children}</main>
-        </>
+            <Header />
+            <div className={cn(wrapper && "wrapper", className)}>
+                {children}
+            </div>
+        </main>
     );
 };
 
