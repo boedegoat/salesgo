@@ -7,12 +7,12 @@ import {
 
 const Home = () => {
     return (
-        <Container title="Home">
+        <Container title="Home" className="max-w-md mx-auto">
             <Greetings />
             <Progress />
             <StoreDestinations />
             {/* temp quote */}
-            <div className="wrapper my-5">
+            <div className="my-5">
                 <img
                     src="/images/illustration/on-the-way.svg"
                     alt="on the way"
