@@ -1,14 +1,17 @@
 import { useTheme } from "next-themes";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import useMounted from "./useMounted";
 
 const useDarkMode = () => {
     const { theme, setTheme, systemTheme } = useTheme();
     const mounted = useMounted();
 
-    const toggleTheme = useCallback(() => {
-        const currentTheme = theme === "system" ? systemTheme : theme;
+    const currentTheme = useMemo(
+        () => (theme === "system" ? systemTheme : theme),
+        [theme, systemTheme]
+    );
 
+    const toggleTheme = useCallback(() => {
         if (currentTheme === "dark") {
             setTheme("light");
         } else {
@@ -17,7 +20,7 @@ const useDarkMode = () => {
     }, [theme, systemTheme]);
 
     if (!mounted) return {};
-    return { theme, toggleTheme };
+    return { theme: currentTheme, toggleTheme };
 };
 
 export default useDarkMode;
