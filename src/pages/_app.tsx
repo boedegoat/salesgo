@@ -1,13 +1,20 @@
-import "../styles/globals.css";
+import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({
+    Component,
+    pageProps: { session, ...pageProps },
+}: AppProps) => {
     return (
         <ThemeProvider enableSystem attribute="class">
-            <Component {...pageProps} />
+            <MyComponent {...{ Component, ...pageProps }} />
         </ThemeProvider>
     );
-}
+};
 
 export default MyApp;
+
+const MyComponent = ({ Component, pageProps }: AppProps) => {
+    return <Component {...pageProps} />;
+};

@@ -22,7 +22,8 @@
     "plugins": ["react", "@typescript-eslint"],
     "rules": {
         "react/react-in-jsx-scope": "off",
-        "require-jsdoc": "off"
+        "require-jsdoc": "off",
+        "new-cap": "off"
     },
     "settings": {
         "react": {

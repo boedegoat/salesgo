@@ -2,18 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.text-slate-500 {
-    @apply dark:text-slate-400;
-}
-
-.bg-slate-100 {
-    @apply dark:bg-slate-700;
-}
-
-.border {
-    @apply dark:border-slate-700 dark:bg-slate-800;
-}
-
 @layer base {
     body {
         @apply dark:bg-slate-900 dark:text-slate-300;
@@ -21,8 +9,42 @@
     }
 }
 
+@layer components {
+    label.input-group {
+        @apply block text-left text-slate-600 dark:text-slate-300;
+    }
+
+    label.input-group span {
+        @apply inline-block text-sm mb-3 font-medium;
+    }
+
+    label.input-group input {
+        @apply w-full rounded-lg bg-transparent focus:ring-0 border-2 border-slate-300 dark:border-slate-700 focus:border-teal-500 dark:focus:border-teal-500 font-medium;
+    }
+
+    .gradient-button {
+        @apply bg-gradient-to-t from-teal-400 via-teal-400 to-teal-200 dark:[background-image:none] dark:bg-slate-800 dark:border-2 dark:border-teal-500/50 dark:hover:border-teal-300 text-white dark:text-teal-300 font-semibold py-3 rounded-xl shadow-xl dark:shadow-none shadow-teal-300/50 dark:shadow-teal-300/30 transition-colors hover:from-teal-300 hover:via-teal-300 hover:to-teal-200;
+    }
+}
+
 @layer utilities {
     .wrapper {
         @apply container px-5 mx-auto;
+    }
+
+    .wrapper-mobile {
+        @apply max-w-md px-5 mx-auto;
+    }
+
+    .text-slate-500 {
+        @apply dark:text-slate-400;
+    }
+
+    .bg-slate-100 {
+        @apply dark:bg-slate-700;
+    }
+
+    .border {
+        @apply dark:border-slate-700 dark:bg-slate-800;
     }
 }

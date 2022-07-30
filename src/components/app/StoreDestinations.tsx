@@ -34,7 +34,7 @@ const dummyStores = [
 
 const StoreDestinations = () => {
     return (
-        <div className="my-5 pl-5">
+        <div className="my-5">
             <div className="flex space-x-4 overflow-auto scrollbar-hide snap-x snap-mandatory">
                 {/* TODO: kalo di klik -> tampilin modal */}
                 {/* isi modalnya : gambar toko, nama, alamat, pemilik */}

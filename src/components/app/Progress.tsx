@@ -3,7 +3,7 @@ import { PageLink } from "@/components";
 
 const Progress = () => {
     return (
-        <div className="wrapper">
+        <div>
             <PageLink
                 href="#"
                 className="block mt-2 p-3 pt-2 border rounded-xl"
