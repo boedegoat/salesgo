@@ -41,7 +41,8 @@ interface ResponseBody extends CustomObject {
 }
 
 export const sendResponse = (res: NextApiResponse, body: ResponseBody) => {
-    const { status = StatusCodes.OK, message = "Success" } = body;
+    let { status = StatusCodes.OK, message } = body;
+    message = message || StatusCodes[status];
 
     res.status(status).json({
         ...body,

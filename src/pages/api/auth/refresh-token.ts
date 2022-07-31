@@ -1,3 +1,4 @@
+import { JwtPayload } from "jsonwebtoken";
 import { setCookie } from "cookies-next";
 import { StatusCodes } from "http-status-codes";
 import { ApiError, handler, sendResponse } from "@/utils/api";
@@ -12,8 +13,8 @@ refreshToken.get((req, res) => {
         throw new ApiError("You are signed out", StatusCodes.UNAUTHORIZED);
     }
 
-    const user = verifyRefreshToken(refreshToken);
-    const accessToken = createAccessToken(user);
+    const userPayload = verifyRefreshToken(refreshToken) as JwtPayload;
+    const accessToken = createAccessToken({ id: userPayload.id });
 
     setCookie("accessTokenLife", accessToken.expiresIn, {
         req,
@@ -23,7 +24,7 @@ refreshToken.get((req, res) => {
     });
 
     sendResponse(res, {
-        message: "Access token created",
+        message: "Berhasil memperbaharui access token",
         accessToken: accessToken.token,
     });
 });

@@ -4,6 +4,7 @@ export default class ApiError extends Error {
     status: StatusCodes;
     constructor(message: string, status?: StatusCodes) {
         super(message);
+        this.name = "ApiError";
         this.status = status ?? StatusCodes.INTERNAL_SERVER_ERROR;
     }
 }

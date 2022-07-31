@@ -6,7 +6,7 @@ const secret = {
 };
 
 export const createAccessToken = (payload: any) => {
-    const expiresIn = 30; // 30 seconds TODO: change this later
+    const expiresIn = 10 * 60; // 10 minutes TODO: change this later
     const token = jwt.sign(payload, secret.accessToken, {
         expiresIn,
     });
@@ -22,19 +22,9 @@ export const createRefreshToken = (payload: any) => {
 };
 
 export const verifyAccessToken = (accessToken: string) => {
-    // eslint-disable-next-line no-unused-vars
-    const { iat, exp, ...token } = jwt.verify(
-        accessToken,
-        secret.accessToken
-    ) as CustomObject;
-    return token;
+    return jwt.verify(accessToken, secret.accessToken);
 };
 
 export const verifyRefreshToken = (refreshToken: string) => {
-    // eslint-disable-next-line no-unused-vars
-    const { iat, exp, ...token } = jwt.verify(
-        refreshToken,
-        secret.refreshToken
-    ) as CustomObject;
-    return token;
+    return jwt.verify(refreshToken, secret.refreshToken);
 };

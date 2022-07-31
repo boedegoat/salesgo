@@ -26,17 +26,21 @@ registerCompany.post(async (req, res, next) => {
                 email: manager.email,
             },
         });
-        if (isEmailExist) errors.push("Email sudah dipakai");
+        if (isEmailExist) {
+            errors.push("Email sudah dipakai");
+        }
 
         const isPhoneNumberExist = await db.user.findFirst({
             where: {
                 phoneNumber: manager.phoneNumber,
             },
         });
-        if (isPhoneNumberExist) errors.push("Nomor HP sudah dipakai");
+        if (isPhoneNumberExist) {
+            errors.push("Nomor HP sudah dipakai");
+        }
 
         if (errors.length > 0) {
-            throw new ApiError(errors.join(", "), StatusCodes.BAD_REQUEST);
+            throw new ApiError(errors.join("\n"), StatusCodes.BAD_REQUEST);
         }
 
         const hashedPassword = await hashPassword(manager.password);
@@ -54,8 +58,10 @@ registerCompany.post(async (req, res, next) => {
             },
         });
 
-        const accessToken = createAccessToken(newManager);
-        const refreshToken = createRefreshToken(newManager);
+        const accessToken = createAccessToken({ id: newManager.id });
+        const refreshToken = createRefreshToken({ id: newManager.id });
+
+        console.log({ accessToken });
 
         setCookie("accessTokenLife", accessToken.expiresIn, {
             req,
@@ -75,7 +81,7 @@ registerCompany.post(async (req, res, next) => {
 
         sendResponse(res, {
             status: StatusCodes.CREATED,
-            message: "Company registered",
+            message: "Berhasil mendaftarkan perusahaan",
             user: newManager,
             accessToken: accessToken.token,
         });
