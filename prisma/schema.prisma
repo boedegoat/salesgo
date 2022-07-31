@@ -17,28 +17,21 @@ enum Role {
 }
 
 model User {
-    id           String           @id @default(auto()) @map("_id") @db.ObjectId
-    name         String
-    email        String           @unique
-    password     String
-    phoneNumber  String?          @unique
-    employeeData CompanyEmployee?
+    id          String  @id @default(auto()) @map("_id") @db.ObjectId
+    name        String
+    email       String  @unique
+    phoneNumber String  @unique
+    password    String
+    role        Role
+    employeeId  String?
+    company     Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+    companyId   String  @db.ObjectId
 }
 
 model Company {
-    id        String            @id @default(auto()) @map("_id") @db.ObjectId
+    id        String @id @default(auto()) @map("_id") @db.ObjectId
     name      String
     country   String
     address   String
-    employees CompanyEmployee[]
-}
-
-model CompanyEmployee {
-    id         String  @id @default(auto()) @map("_id") @db.ObjectId
-    user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId     String  @unique @db.ObjectId
-    employeeId String? @unique
-    company    Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-    companyId  String  @unique @db.ObjectId
-    role       Role
+    employees User[]
 }
