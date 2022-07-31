@@ -22,9 +22,19 @@ export const createRefreshToken = (payload: any) => {
 };
 
 export const verifyAccessToken = (accessToken: string) => {
-    return jwt.verify(accessToken, secret.accessToken);
+    // eslint-disable-next-line no-unused-vars
+    const { iat, exp, ...token } = jwt.verify(
+        accessToken,
+        secret.accessToken
+    ) as CustomObject;
+    return token;
 };
 
 export const verifyRefreshToken = (refreshToken: string) => {
-    return jwt.verify(refreshToken, secret.refreshToken);
+    // eslint-disable-next-line no-unused-vars
+    const { iat, exp, ...token } = jwt.verify(
+        refreshToken,
+        secret.refreshToken
+    ) as CustomObject;
+    return token;
 };

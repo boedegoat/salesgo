@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { handler, onError, sendResponse } from "@/utils/api";
+import { ApiError, handler, onError, sendResponse } from "@/utils/api";
 import db from "@/utils/db";
 import { hashPassword } from "@/utils/hash";
 import { createAccessToken, createRefreshToken } from "@/utils/jwt";
@@ -19,6 +19,26 @@ registerCompany.post(async (req, res, next) => {
     });
 
     try {
+        const errors = [];
+
+        const isEmailExist = await db.user.findFirst({
+            where: {
+                email: manager.email,
+            },
+        });
+        if (isEmailExist) errors.push("Email sudah dipakai");
+
+        const isPhoneNumberExist = await db.user.findFirst({
+            where: {
+                phoneNumber: manager.phoneNumber,
+            },
+        });
+        if (isPhoneNumberExist) errors.push("Nomor HP sudah dipakai");
+
+        if (errors.length > 0) {
+            throw new ApiError(errors.join(", "), StatusCodes.BAD_REQUEST);
+        }
+
         const hashedPassword = await hashPassword(manager.password);
 
         // eslint-disable-next-line no-unused-vars

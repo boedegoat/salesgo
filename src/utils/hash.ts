@@ -2,7 +2,6 @@ import bcrypt from "bcrypt";
 
 export const hashPassword = async (plainPassword: string) => {
     const salt = await bcrypt.genSalt();
-    console.log({ salt });
     return bcrypt.hash(plainPassword, salt);
 };
 
