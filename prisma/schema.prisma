@@ -9,3 +9,36 @@ datasource db {
     provider = "mongodb"
     url      = env("DATABASE_URL")
 }
+
+enum Role {
+    Manager
+    Supervisor
+    Sales
+}
+
+model User {
+    id           String           @id @default(auto()) @map("_id") @db.ObjectId
+    name         String
+    email        String           @unique
+    password     String
+    phoneNumber  String?          @unique
+    employeeData CompanyEmployee?
+}
+
+model Company {
+    id        String            @id @default(auto()) @map("_id") @db.ObjectId
+    name      String
+    country   String
+    address   String
+    employees CompanyEmployee[]
+}
+
+model CompanyEmployee {
+    id         String  @id @default(auto()) @map("_id") @db.ObjectId
+    user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId     String  @unique @db.ObjectId
+    employeeId String? @unique
+    company    Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+    companyId  String  @unique @db.ObjectId
+    role       Role
+}
