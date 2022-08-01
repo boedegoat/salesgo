@@ -37,7 +37,7 @@ signIn.post(async (req, res) => {
             sendResponse(res, {
                 status: StatusCodes.BAD_REQUEST,
                 message: `Ditemukan ${users.length} akun`,
-                users,
+                users: users.map(({ password, ...user }) => user),
             });
             return;
         }
