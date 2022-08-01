@@ -2,8 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import { ApiError, handler, onError, sendResponse } from "@/utils/api";
 import db from "@/utils/db";
 import { hashPassword } from "@/utils/hash";
-import { createAccessToken, createRefreshToken } from "@/utils/jwt";
-import { setCookie } from "cookies-next";
+import { sendAuthToken } from "@/utils/authToken";
 
 const registerCompany = handler();
 
@@ -58,25 +57,10 @@ registerCompany.post(async (req, res, next) => {
             },
         });
 
-        const accessToken = createAccessToken({ id: newManager.id });
-        const refreshToken = createRefreshToken({ id: newManager.id });
-
-        console.log({ accessToken });
-
-        setCookie("accessTokenLife", accessToken.expiresIn, {
+        const { accessToken } = sendAuthToken({
             req,
             res,
-            maxAge: accessToken.expiresIn,
-            secure: process.env.NODE_ENV === "production",
-        });
-
-        setCookie("refreshToken", refreshToken.token, {
-            req,
-            res,
-            maxAge: refreshToken.expiresIn,
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
+            userId: newManager.id,
         });
 
         sendResponse(res, {
