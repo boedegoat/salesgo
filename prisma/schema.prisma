@@ -16,7 +16,7 @@ enum Role {
     Sales
 }
 
-model User {
+model Employee {
     id          String   @id @default(auto()) @map("_id") @db.ObjectId
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
@@ -31,11 +31,11 @@ model User {
 }
 
 model Company {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id        String     @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
     name      String
     country   String
     address   String
-    employees User[]
+    employees Employee[]
 }

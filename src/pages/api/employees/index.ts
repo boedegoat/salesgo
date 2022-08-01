@@ -16,9 +16,9 @@ const selectFields = {
 
 // Get All Employees in Same Company
 employeesHandler.get(checkAuth("Manager"), async (req, res) => {
-    const employees = await db.user.findMany({
+    const employees = await db.employee.findMany({
         where: {
-            companyId: req.user.companyId,
+            companyId: req.employee.companyId,
         },
         select: selectFields,
     });
@@ -53,9 +53,9 @@ employeesHandler.post(checkAuth("Manager"), async (req, res) => {
         );
     }
 
-    const isEmployeeIdExist = await db.user.findFirst({
+    const isEmployeeIdExist = await db.employee.findFirst({
         where: {
-            companyId: req.user.companyId,
+            companyId: req.employee.companyId,
             employeeId: employee.employeeId,
         },
     });
@@ -63,7 +63,7 @@ employeesHandler.post(checkAuth("Manager"), async (req, res) => {
         errors.push(`employeeId: ${employee.employeeId} sudah dipakai`);
     }
 
-    const isEmailExist = await db.user.findFirst({
+    const isEmailExist = await db.employee.findFirst({
         where: {
             email: employee.email,
         },
@@ -72,7 +72,7 @@ employeesHandler.post(checkAuth("Manager"), async (req, res) => {
         errors.push("Email sudah dipakai");
     }
 
-    const isPhoneNumberExist = await db.user.findFirst({
+    const isPhoneNumberExist = await db.employee.findFirst({
         where: {
             phoneNumber: employee.phoneNumber,
         },
@@ -87,14 +87,14 @@ employeesHandler.post(checkAuth("Manager"), async (req, res) => {
 
     const hashedPassword = await hashPassword(employee.password);
 
-    const newEmployee = await db.user.create({
+    const newEmployee = await db.employee.create({
         data: {
             name: employee.name,
             email: employee.email,
             password: hashedPassword,
             role: employee.role,
             phoneNumber: employee.phoneNumber,
-            companyId: req.user.companyId,
+            companyId: req.employee.companyId,
             employeeId: employee.employeeId,
         },
         select: selectFields,

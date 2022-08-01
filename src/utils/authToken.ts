@@ -5,12 +5,12 @@ import { createAccessToken, createRefreshToken } from "./jwt";
 interface SendAuthToken {
     req: NextApiRequest;
     res: NextApiResponse;
-    userId: string;
+    id: string;
 }
 
-export const sendAuthToken = ({ req, res, userId }: SendAuthToken) => {
-    const accessToken = createAccessToken({ id: userId });
-    const refreshToken = createRefreshToken({ id: userId });
+export const sendAuthToken = ({ req, res, id }: SendAuthToken) => {
+    const accessToken = createAccessToken({ id });
+    const refreshToken = createRefreshToken({ id });
 
     setCookie("accessTokenLife", accessToken.expiresIn, {
         req,

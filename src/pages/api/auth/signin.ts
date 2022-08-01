@@ -26,46 +26,51 @@ signIn.post(async (req, res) => {
         where.phoneNumber = phoneNumber;
     }
 
-    let user;
+    let employee;
 
     if (companyId) {
         where.companyId = companyId;
-        user = await db.user.findFirst({ where });
+        employee = await db.employee.findFirst({ where });
     } else {
-        const users = await db.user.findMany({ where });
-        if (users.length > 1) {
+        const employees = await db.employee.findMany({ where });
+        if (employees.length > 1) {
             sendResponse(res, {
                 status: StatusCodes.BAD_REQUEST,
-                message: `Ditemukan ${users.length} akun`,
-                users: users.map(({ password, ...user }) => user),
+                message: `Ditemukan ${employees.length} akun`,
+                employees: employees.map(
+                    ({ password, ...employee }) => employee
+                ),
             });
             return;
         }
-        user = users[0];
+        employee = employees[0];
     }
 
-    if (!user) {
+    if (!employee) {
         throw new ApiError(`Akun tidak ditemukan`, StatusCodes.NOT_FOUND);
     }
 
-    const isPasswordCorrect = await comparePassword(password, user.password);
+    const isPasswordCorrect = await comparePassword(
+        password,
+        employee.password
+    );
 
     if (!isPasswordCorrect) {
         throw new ApiError("Password salah", StatusCodes.BAD_REQUEST);
     }
 
     // eslint-disable-next-line no-unused-vars
-    const { password: p, ...signedInUser } = user;
+    const { password: p, ...signedInemployee } = employee;
 
     const { accessToken } = sendAuthToken({
         req,
         res,
-        userId: signedInUser.id,
+        id: signedInemployee.id,
     });
 
     sendResponse(res, {
         message: "Sign In berhasil",
-        user: signedInUser,
+        employee: signedInemployee,
         accessToken: accessToken.token,
     });
 });

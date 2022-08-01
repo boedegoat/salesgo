@@ -2,13 +2,13 @@ import { StatusCodes } from "http-status-codes";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Middleware } from "next-connect";
 import { JwtPayload } from "jsonwebtoken";
-import { Role, User } from "@prisma/client";
+import { Role, Employee } from "@prisma/client";
 import db from "@/utils/db";
 import { verifyAccessToken } from "@/utils/jwt";
 import ApiError from "./error";
 
 interface NextApiRequestWithAuth extends NextApiRequest {
-    user: User;
+    employee: Employee;
 }
 
 export const checkAuth = (
@@ -25,27 +25,27 @@ export const checkAuth = (
         }
 
         const accessToken = authorization.replace("Bearer ", "");
-        const userPayload = verifyAccessToken(accessToken) as JwtPayload;
+        const employeePayload = verifyAccessToken(accessToken) as JwtPayload;
 
-        const user = await db.user.findUnique({
+        const employee = await db.employee.findUnique({
             where: {
-                id: userPayload.id,
+                id: employeePayload.id,
             },
         });
 
-        if (!user) {
-            throw new ApiError("User not found", StatusCodes.NOT_FOUND);
+        if (!employee) {
+            throw new ApiError("Akun tidak ditemukan", StatusCodes.NOT_FOUND);
         }
 
         const roles = Object.values(Role);
-        if (role && roles.indexOf(user.role) > roles.indexOf(role)) {
+        if (role && roles.indexOf(employee.role) > roles.indexOf(role)) {
             throw new ApiError(
-                `Only ${role} or higher who are allowed to access this route`,
+                `Hanya role ${role} atau lebih tinggi yang bisa mengakses route ini`,
                 StatusCodes.FORBIDDEN
             );
         }
 
-        req.user = user;
+        req.employee = employee;
         next();
     };
 };

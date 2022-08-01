@@ -13,8 +13,8 @@ refreshToken.get((req, res) => {
         throw new ApiError("You are signed out", StatusCodes.UNAUTHORIZED);
     }
 
-    const userPayload = verifyRefreshToken(refreshToken) as JwtPayload;
-    const accessToken = createAccessToken({ id: userPayload.id });
+    const employeePayload = verifyRefreshToken(refreshToken) as JwtPayload;
+    const accessToken = createAccessToken({ id: employeePayload.id });
 
     setCookie("accessTokenLife", accessToken.expiresIn, {
         req,

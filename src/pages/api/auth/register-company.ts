@@ -20,7 +20,7 @@ registerCompany.post(async (req, res, next) => {
     try {
         const errors = [];
 
-        const isEmailExist = await db.user.findFirst({
+        const isEmailExist = await db.employee.findFirst({
             where: {
                 email: manager.email,
             },
@@ -29,7 +29,7 @@ registerCompany.post(async (req, res, next) => {
             errors.push("Email sudah dipakai");
         }
 
-        const isPhoneNumberExist = await db.user.findFirst({
+        const isPhoneNumberExist = await db.employee.findFirst({
             where: {
                 phoneNumber: manager.phoneNumber,
             },
@@ -45,7 +45,7 @@ registerCompany.post(async (req, res, next) => {
         const hashedPassword = await hashPassword(manager.password);
 
         // eslint-disable-next-line no-unused-vars
-        const { password, ...newManager } = await db.user.create({
+        const { password, ...newManager } = await db.employee.create({
             data: {
                 name: manager.name,
                 email: manager.email,
@@ -60,7 +60,7 @@ registerCompany.post(async (req, res, next) => {
         const { accessToken } = sendAuthToken({
             req,
             res,
-            userId: newManager.id,
+            id: newManager.id,
         });
 
         sendResponse(res, {
