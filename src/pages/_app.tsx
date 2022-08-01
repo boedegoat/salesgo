@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
+import { OfflineIndicator } from "@/components";
 
 const MyApp = ({
     Component,
@@ -8,6 +9,7 @@ const MyApp = ({
 }: AppProps) => {
     return (
         <ThemeProvider enableSystem attribute="class">
+            <OfflineIndicator />
             <MyComponent {...{ Component, ...pageProps }} />
         </ThemeProvider>
     );

@@ -8,7 +8,7 @@ import { verifyAccessToken } from "@/utils/jwt";
 import ApiError from "./error";
 
 interface NextApiRequestWithAuth extends NextApiRequest {
-    employee: Employee;
+    employee: Omit<Employee, "password">;
 }
 
 export const checkAuth = (
@@ -27,6 +27,7 @@ export const checkAuth = (
         const accessToken = authorization.replace("Bearer ", "");
         const employeePayload = verifyAccessToken(accessToken) as JwtPayload;
 
+        // eslint-disable-next-line no-unused-vars
         const employee = await db.employee.findUnique({
             where: {
                 id: employeePayload.id,
@@ -45,7 +46,10 @@ export const checkAuth = (
             );
         }
 
-        req.employee = employee;
+        // eslint-disable-next-line no-unused-vars
+        const { password, ...employeeData } = employee;
+
+        req.employee = employeeData;
         next();
     };
 };
