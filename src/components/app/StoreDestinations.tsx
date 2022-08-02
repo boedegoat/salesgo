@@ -10,13 +10,13 @@ import { PageLink } from "@/components";
 import { checkInHandler } from "@/utils/location";
 
 const store = {
-    nama: "Toko Bu Antin",
+    nama: "Warung Peje Hebat",
     alamat: "Pondok Aren, Tangerang Selatan",
     mapsLink:
-        "https://www.google.co.id/maps/place/Jl.+Carissa+IX+No.28,+Pd.+Jagung+Tim.,+Kec.+Serpong+Utara,+Kota+Tangerang+Selatan,+Banten+15326/@-6.2526441,106.6736765,19z/data=!3m1!4b1!4m12!1m6!3m5!1s0x2e69fb2e7c896979:0xf894de8e5c3dc986!2sGraha+Raya+Bintaro+CLUSTER+CARISSA!8m2!3d-6.2518195!4d106.6737048!3m4!1s0x2e69fbb29cf48b0f:0xbb6e48f8f8664360!8m2!3d-6.2526454!4d106.6742237",
+        "https://www.google.com/maps/place/Sekolah+Menengah+Atas+Plus+Pembangunan+Jaya/@-6.2767299,106.6965927,18.75z/data=!4m5!3m4!1s0x2e69fabef851eeb7:0x3b2885e3df9e41ef!8m2!3d-6.2766298!4d106.6969239?hl=id",
     coords: {
-        latitude: -6.2526314018845355,
-        longitude: 106.67422235866543,
+        latitude: -6.276647178284698,
+        longitude: 106.69691509386811,
     },
 };
 

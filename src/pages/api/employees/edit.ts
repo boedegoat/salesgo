@@ -2,11 +2,12 @@ import { checkAuth, handler, sendResponse } from "@/utils/api";
 import db from "@/utils/db";
 import { hashPassword } from "@/utils/hash";
 
-const employeeIdHandler = handler();
+const editEmployee = handler();
 
-// EDIT EMPLOYEE
-employeeIdHandler.put(checkAuth(), async (req, res) => {
+editEmployee.put(checkAuth(), async (req, res) => {
     const { name, email, password, phoneNumber, employeeId } = req.body;
+
+    // TODO: check each unique field (email, phoneNumber) is aready exist or not
 
     const data: CustomObject = {
         name,
@@ -33,4 +34,4 @@ employeeIdHandler.put(checkAuth(), async (req, res) => {
     });
 });
 
-export default employeeIdHandler;
+export default editEmployee;

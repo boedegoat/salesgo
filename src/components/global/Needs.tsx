@@ -1,5 +1,6 @@
 import { LocationMarkerIcon } from "@heroicons/react/outline";
 import { NextComponentType, NextPageContext } from "next";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
 
@@ -42,7 +43,12 @@ const Needs =
         }, []);
 
         if (services.includes("geolocation")) {
-            if (isLocationEnabled === null) return null;
+            if (isLocationEnabled === null)
+                return (
+                    <Head>
+                        <title>Checking location...</title>
+                    </Head>
+                );
             if (isLocationEnabled === false) {
                 return (
                     <Loader
