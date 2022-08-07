@@ -6,14 +6,6 @@ import { StatusCodes } from "http-status-codes";
 
 const employeesHandler = handler();
 
-const selectFields = {
-    employeeId: true,
-    name: true,
-    role: true,
-    email: true,
-    phoneNumber: true,
-};
-
 interface CheckUniqueFields {
     req: any;
     employeeId?: string;
@@ -56,11 +48,10 @@ employeesHandler.get(checkAuth("Manager"), async (req, res) => {
         where: {
             companyId: req.employee.companyId,
         },
-        select: selectFields,
     });
 
     sendResponse(res, {
-        employees,
+        employees: employees.map(({ password, ...employee }) => employee),
         count: employees.length,
     });
 });
@@ -116,7 +107,8 @@ employeesHandler.post(checkAuth("Manager"), async (req, res) => {
 
     const hashedPassword = await hashPassword(employee.password);
 
-    const newEmployee = await db.employee.create({
+    // eslint-disable-next-line no-unused-vars
+    const { password, ...newEmployee } = await db.employee.create({
         data: {
             name: employee.name,
             email: employee.email,
@@ -126,7 +118,6 @@ employeesHandler.post(checkAuth("Manager"), async (req, res) => {
             companyId: req.employee.companyId,
             employeeId: employee.employeeId,
         },
-        select: selectFields,
     });
 
     sendResponse(res, {
