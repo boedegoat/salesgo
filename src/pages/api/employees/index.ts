@@ -14,6 +14,42 @@ const selectFields = {
     phoneNumber: true,
 };
 
+interface CheckUniqueFields {
+    req: any;
+    employeeId?: string;
+    email?: string;
+    phoneNumber?: string;
+}
+
+export const checkUniqueFields = ({
+    req,
+    employeeId,
+    email,
+    phoneNumber,
+}: CheckUniqueFields) => {
+    return Promise.all([
+        // is employee id exist
+        db.employee.findFirst({
+            where: {
+                companyId: req.employee.companyId,
+                employeeId,
+            },
+        }),
+        // is email exist
+        db.employee.findFirst({
+            where: {
+                email,
+            },
+        }),
+        // is phone number exist
+        db.employee.findFirst({
+            where: {
+                phoneNumber,
+            },
+        }),
+    ]);
+};
+
 // Get All Employees in Same Company
 employeesHandler.get(checkAuth("Manager"), async (req, res) => {
     const employees = await db.employee.findMany({
@@ -53,30 +89,23 @@ employeesHandler.post(checkAuth("Manager"), async (req, res) => {
         );
     }
 
-    const isEmployeeIdExist = await db.employee.findFirst({
-        where: {
-            companyId: req.employee.companyId,
-            employeeId: employee.employeeId,
-        },
+    const checks = await checkUniqueFields({
+        req,
+        employeeId: employee.employeeId,
+        email: employee.email,
+        phoneNumber: employee.phoneNumber,
     });
+
+    const [isEmployeeIdExist, isEmailExist, isPhoneNumberExist] = checks;
+
     if (isEmployeeIdExist) {
         errors.push(`employeeId: ${employee.employeeId} sudah dipakai`);
     }
 
-    const isEmailExist = await db.employee.findFirst({
-        where: {
-            email: employee.email,
-        },
-    });
     if (isEmailExist) {
         errors.push("Email sudah dipakai");
     }
 
-    const isPhoneNumberExist = await db.employee.findFirst({
-        where: {
-            phoneNumber: employee.phoneNumber,
-        },
-    });
     if (isPhoneNumberExist) {
         errors.push("Nomor HP sudah dipakai");
     }

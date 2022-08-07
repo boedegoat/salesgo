@@ -19,12 +19,20 @@ export const checkAuth = (
 
         if (!authorization || !authorization.startsWith("Bearer ")) {
             throw new ApiError(
-                "Missing access token",
+                "Missing or invalid authorization header",
                 StatusCodes.UNAUTHORIZED
             );
         }
 
         const accessToken = authorization.replace("Bearer ", "");
+
+        if (!accessToken) {
+            throw new ApiError(
+                "Missing access token",
+                StatusCodes.UNAUTHORIZED
+            );
+        }
+
         const employeePayload = verifyAccessToken(accessToken) as JwtPayload;
 
         // eslint-disable-next-line no-unused-vars

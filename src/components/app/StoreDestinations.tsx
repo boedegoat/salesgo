@@ -10,13 +10,13 @@ import { PageLink } from "@/components";
 import { checkInHandler } from "@/utils/location";
 
 const store = {
-    nama: "Warung Peje Hebat",
+    nama: "Home sweet home",
     alamat: "Pondok Aren, Tangerang Selatan",
     mapsLink:
         "https://www.google.com/maps/place/Sekolah+Menengah+Atas+Plus+Pembangunan+Jaya/@-6.2767299,106.6965927,18.75z/data=!4m5!3m4!1s0x2e69fabef851eeb7:0x3b2885e3df9e41ef!8m2!3d-6.2766298!4d106.6969239?hl=id",
     coords: {
-        latitude: -6.276647178284698,
-        longitude: 106.69691509386811,
+        latitude: -6.252454022664635,
+        longitude: 106.67416033539611,
     },
 };
 
