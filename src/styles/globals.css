@@ -7,6 +7,22 @@
         @apply dark:bg-slate-900 dark:text-slate-300;
         -webkit-tap-highlight-color: transparent;
     }
+
+    input[type="checkbox"] {
+        @apply rounded     
+        cursor-pointer border-2 dark:bg-transparent dark:checked:bg-teal-500
+                          border-slate-300
+                          dark:border-slate-700
+                          text-teal-500
+                          shadow-sm
+                          focus:border-teal-300
+                          dark:checked:border-teal-500
+                          focus:ring
+                          focus:ring-offset-0
+                          focus:ring-teal-200
+                          focus:ring-opacity-60
+                          dark:focus:ring-opacity-20;
+    }
 }
 
 @layer components {

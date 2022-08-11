@@ -6,6 +6,7 @@ import {
     HomeIcon,
     UserIcon,
 } from "@heroicons/react/outline";
+import { CSSProperties } from "react";
 
 interface Props {
     children: React.ReactNode;
@@ -13,6 +14,8 @@ interface Props {
     wrapper?: boolean | "mobile";
     className?: string;
     noBottomNav?: boolean;
+    noHeader?: boolean;
+    style?: CSSProperties;
 }
 
 const bottomNavButtons = [
@@ -35,20 +38,23 @@ const Container = ({
     title,
     wrapper,
     className,
+    noHeader,
     noBottomNav,
+    style,
 }: Props) => {
     return (
         <main>
             <Head>
                 <title>{title}</title>
             </Head>
-            <Header />
+            {!noHeader && <Header />}
             <div
                 className={cn(
                     wrapper === true && "wrapper",
                     wrapper === "mobile" && "wrapper-mobile",
                     className
                 )}
+                style={style}
             >
                 {children}
             </div>

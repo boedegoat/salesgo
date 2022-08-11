@@ -26,7 +26,7 @@ const Home = () => {
                     </p>
                     <div className="my-6">
                         <PageLink
-                            href="#"
+                            href="/register-company"
                             className="w-full md:w-max px-5 md:px-7 gradient-button flex items-center justify-center"
                         >
                             <OfficeBuildingIconSolid className="w-5 h-5 mr-2" />{" "}
