@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Input, PageLink } from "@/components";
-import FormWrapper from "./FormWrapper";
 import { useStateMachine } from "little-state-machine";
+import { Input, PageLink, RoleBadge } from "@/components";
+import FormWrapper from "./FormWrapper";
 
 type FormData = {
     name: string;
@@ -91,15 +91,13 @@ const AdminGeneralForm = ({ step }: { step: number }) => {
             description={
                 <>
                     Silahkan isi data diri yang akan digunakan sebagai{" "}
-                    <span className="bg-orange-500 text-white font-semibold px-1 py-0.5 rounded-md border-b-4 border-b-orange-700">
-                        Admin
-                    </span>{" "}
-                    perusahaan Anda
+                    <RoleBadge>Admin</RoleBadge> perusahaan Anda
                 </>
             }
             isValid={isValid}
             field={"admin"}
             data={getValues()}
+            onContinue={() => alert("Silahkan cek email anda untuk verifikasi")}
         >
             <div className="my-5 space-y-3">
                 <Input

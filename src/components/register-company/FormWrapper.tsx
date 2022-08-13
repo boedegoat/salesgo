@@ -10,6 +10,7 @@ interface Props {
     field: "admin" | "company";
     data: CustomObject;
     step: number;
+    onContinue?: () => void;
 }
 
 type SetFormDataPayload = { field: "admin" | "company"; data: any };
@@ -62,6 +63,7 @@ const FormWrapper = ({
     field,
     data,
     step,
+    onContinue: customOnContinue,
 }: Props) => {
     const { actions } = useStateMachine({
         setFormData,
@@ -73,6 +75,7 @@ const FormWrapper = ({
         e.preventDefault();
         actions.setFormData({ field, data });
         actions.toNextStep();
+        customOnContinue && customOnContinue();
     };
 
     return (

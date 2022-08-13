@@ -3,7 +3,10 @@ import { useTheme } from "next-themes";
 import { useStateMachine } from "little-state-machine";
 import { MenuIcon } from "@heroicons/react/outline";
 import { Container } from "@/components";
-import { AdminGeneralForm } from "@/components/register-company";
+import {
+    AdminGeneralForm,
+    AdminPasswordForm,
+} from "@/components/register-company";
 import { useMounted } from "@/hooks";
 
 // TODO: create form flow -> admin data, admin password, company data
@@ -56,8 +59,7 @@ const RegisterCompany = () => {
                 <div className="overflow-hidden">
                     <div className="flex space-x-10">
                         <AdminGeneralForm step={1} />
-                        <AdminGeneralForm step={2} />
-                        <AdminGeneralForm step={3} />
+                        <AdminPasswordForm step={2} />
                     </div>
                 </div>
             </div>
