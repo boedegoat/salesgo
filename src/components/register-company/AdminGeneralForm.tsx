@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Input, PageLink } from "@/components";
 import FormWrapper from "./FormWrapper";
+import { useStateMachine } from "little-state-machine";
 
 type FormData = {
     name: string;
@@ -18,9 +19,16 @@ const schema = yup
         name: yup.string().required("Harap masukkan nama lengkap anda"),
         email: yup
             .string()
-            .email("Harap masukkan email yang valid")
-            .required("Harap masukkan email anda"),
-        phoneNumber: yup.string().required("Harap masukkan nomor telefon anda"),
+            .required("Harap masukkan email anda")
+            .email("Harap masukkan email yang valid"),
+        phoneNumber: yup
+            .string()
+            .required("Harap masukkan nomor telefon anda")
+            .matches(
+                /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+                "Harap masukkan nomor telefon yang valid"
+            )
+            .min(8, "Nomor telefon minimal 8 angka"),
         termsOfService: yup.bool().oneOf([true]).required(),
     })
     .required();
@@ -31,15 +39,30 @@ const AdminGeneralForm = ({ step }: { step: number }) => {
         mode: "onChange",
     });
 
-    const { register, formState, watch, getValues } = form;
+    const { register, formState, watch, getValues, setValue } = form;
     const { errors, isValid, dirtyFields } = formState;
 
     const [isEmailUnique, setIsEmailUnique] = useState(false);
     const [isPhoneNumberUnique, setIsPhoneNumberUnique] = useState(false);
 
+    const { state } = useStateMachine();
+    const { name, email, phoneNumber, termsOfService } =
+        state.registerCompany.formData.admin;
+
     function isFieldValid<K extends keyof FormData>(field: K) {
         return dirtyFields[field] && !errors[field];
     }
+
+    useEffect(() => {
+        setValue("name", name, { shouldValidate: Boolean(name) });
+        setValue("email", email, { shouldValidate: Boolean(email) });
+        setValue("phoneNumber", phoneNumber, {
+            shouldValidate: Boolean(phoneNumber),
+        });
+        setValue("termsOfService", termsOfService, {
+            shouldValidate: Boolean(termsOfService),
+        });
+    }, []);
 
     useEffect(() => {
         const subscription = watch((value) => {

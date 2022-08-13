@@ -4,21 +4,24 @@ import { createStore, StateMachineProvider } from "little-state-machine";
 import { OfflineIndicator } from "@/components";
 import "@/styles/globals.css";
 
-createStore(
-    {
-        registerCompany: {
-            formData: {
-                admin: {},
-                company: {},
+if (typeof window !== "undefined") {
+    createStore(
+        {
+            registerCompany: {
+                formData: {
+                    admin: {},
+                    company: {},
+                },
+                step: 1,
+                totalStep: 3,
             },
-            step: 1,
-            totalStep: 3,
         },
-    },
-    {
-        name: "global-state",
-    }
-);
+        {
+            name: "global-state",
+            storageType: localStorage,
+        }
+    );
+}
 
 const MyApp = ({
     Component,

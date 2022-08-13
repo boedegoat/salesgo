@@ -15,12 +15,11 @@ const RegisterCompany = () => {
     const mounted = useMounted();
 
     useEffect(() => {
+        if (!mounted) return;
         document.getElementById(step.toString())?.scrollIntoView({
             behavior: "smooth",
         });
-    }, [step]);
-
-    if (!mounted) return null;
+    }, [step, mounted]);
 
     return (
         <Container
@@ -34,25 +33,27 @@ const RegisterCompany = () => {
                 }.jpg)`,
             }}
         >
-            <div className="bg-white dark:bg-slate-900 w-[50%] p-12 rounded-tr-2xl rounded-br-2xl shadow-2xl">
+            <div className="bg-white dark:bg-slate-900 w-[50%] p-12 rounded-tr-2xl rounded-br-2xl shadow-2xl overflow-auto scrollbar-hide">
                 <h1 className="font-bold text-3xl dark:text-white">
                     Daftarkan Perusahaan Anda
                 </h1>
 
                 {/* PROGRESS BAR */}
-                <div className="mt-5 bg-slate-100 rounded-full">
-                    <div
-                        style={{
-                            width: `${(step / totalStep) * 100}%`,
-                        }}
-                        className="bg-teal-500 rounded-full text-[10px] text-white font-semibold flex items-center justify-start pl-2 transition-all"
-                    >
-                        {step}/{totalStep}
+                {mounted && (
+                    <div className="mt-5 bg-slate-100 rounded-full">
+                        <div
+                            style={{
+                                width: `${(step / totalStep) * 100}%`,
+                            }}
+                            className="bg-teal-500 rounded-full text-[10px] text-white font-semibold flex items-center justify-start pl-2 transition-all"
+                        >
+                            {step}/{totalStep}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 {/* FORMS */}
-                <div className="overflow-auto">
+                <div className="overflow-hidden">
                     <div className="flex space-x-10">
                         <AdminGeneralForm step={1} />
                         <AdminGeneralForm step={2} />
