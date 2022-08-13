@@ -25,13 +25,13 @@ const schema = yup
     })
     .required();
 
-const FirstStep = () => {
+const AdminGeneralForm = ({ step }: { step: number }) => {
     const form = useForm<FormData>({
         resolver: yupResolver(schema),
         mode: "onChange",
     });
 
-    const { register, handleSubmit, formState, watch } = form;
+    const { register, formState, watch, getValues } = form;
     const { errors, isValid, dirtyFields } = formState;
 
     const [isEmailUnique, setIsEmailUnique] = useState(false);
@@ -61,13 +61,9 @@ const FirstStep = () => {
         return () => subscription.unsubscribe();
     }, [watch, errors, isEmailUnique, isPhoneNumberUnique]);
 
-    const onContinue = handleSubmit((data) => {
-        console.log(data);
-        console.log(isValid, errors);
-    });
-
     return (
         <FormWrapper
+            step={step}
             title="Lengkapi Data Admin Perusahaan"
             description={
                 <>
@@ -79,7 +75,8 @@ const FirstStep = () => {
                 </>
             }
             isValid={isValid}
-            onContinue={onContinue}
+            field={"admin"}
+            data={getValues()}
         >
             <div className="my-5 space-y-3">
                 <Input
@@ -123,4 +120,4 @@ const FirstStep = () => {
     );
 };
 
-export default FirstStep;
+export default AdminGeneralForm;

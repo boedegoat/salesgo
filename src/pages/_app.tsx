@@ -1,8 +1,8 @@
-import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
-import { OfflineIndicator } from "@/components";
 import { createStore, StateMachineProvider } from "little-state-machine";
+import { OfflineIndicator } from "@/components";
+import "@/styles/globals.css";
 
 createStore(
     {

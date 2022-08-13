@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { useTheme } from "next-themes";
+import { useStateMachine } from "little-state-machine";
 import { MenuIcon } from "@heroicons/react/outline";
 import { Container } from "@/components";
-import { FirstStep } from "@/components/register-company";
-import { useStateMachine } from "little-state-machine";
+import { AdminGeneralForm } from "@/components/register-company";
+import { useMounted } from "@/hooks";
 
 // TODO: create form flow -> admin data, admin password, company data
 // TODO: use react-hook-form for handling forms
@@ -10,6 +12,15 @@ const RegisterCompany = () => {
     const { theme } = useTheme();
     const { state } = useStateMachine();
     const { step, totalStep } = state.registerCompany;
+    const mounted = useMounted();
+
+    useEffect(() => {
+        document.getElementById(step.toString())?.scrollIntoView({
+            behavior: "smooth",
+        });
+    }, [step]);
+
+    if (!mounted) return null;
 
     return (
         <Container
@@ -43,9 +54,9 @@ const RegisterCompany = () => {
                 {/* FORMS */}
                 <div className="overflow-auto">
                     <div className="flex space-x-10">
-                        <FirstStep />
-                        <FirstStep />
-                        <FirstStep />
+                        <AdminGeneralForm step={1} />
+                        <AdminGeneralForm step={2} />
+                        <AdminGeneralForm step={3} />
                     </div>
                 </div>
             </div>

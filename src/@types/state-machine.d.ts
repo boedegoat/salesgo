@@ -5,8 +5,8 @@ declare module "little-state-machine" {
     interface GlobalState {
         registerCompany: {
             formData: {
-                admin: any;
-                company: any;
+                admin: CustomObject;
+                company: CustomObject;
             };
             step: number;
             totalStep: number;
