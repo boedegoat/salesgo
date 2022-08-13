@@ -123,7 +123,7 @@ const AdminGeneralForm = ({ step }: { step: number }) => {
                 />
             </div>
 
-            <label className="flex items-center">
+            <label className="flex items-center pl-1">
                 <input
                     type="checkbox"
                     className="mr-2"

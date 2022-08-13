@@ -42,6 +42,14 @@
         @apply w-full rounded-lg bg-transparent focus:ring-0 border-2 border-slate-300 dark:border-slate-700 focus:border-teal-500 dark:focus:border-teal-500 font-medium;
     }
 
+    label.input-group select {
+        @apply w-full rounded-lg bg-transparent focus:ring-0 border-2 border-slate-300 dark:border-slate-700 focus:border-teal-500 dark:focus:border-teal-500 font-medium;
+    }
+
+    label.input-group select option {
+        @apply dark:bg-slate-800;
+    }
+
     .gradient-button {
         @apply bg-gradient-to-t from-teal-400 via-teal-400 to-teal-200 dark:[background-image:none] dark:bg-slate-800 dark:border-2 dark:border-teal-500/50 dark:hover:border-teal-300 text-white dark:text-teal-300 font-semibold py-3 rounded-xl shadow-xl dark:shadow-none shadow-teal-300/50 dark:shadow-teal-300/30 transition-colors hover:from-teal-300 hover:via-teal-300 hover:to-teal-200;
     }

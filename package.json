@@ -30,6 +30,7 @@
         "react-dom": "18.1.0",
         "react-hook-form": "^7.34.0",
         "react-spinners": "^0.13.3",
+        "usehooks-ts": "^2.6.0",
         "yup": "^0.32.11"
     },
     "devDependencies": {

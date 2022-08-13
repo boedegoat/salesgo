@@ -1,6 +1,6 @@
+import { FormEventHandler } from "react";
 import { GlobalState, useStateMachine } from "little-state-machine";
 import { PageLink } from "@/components";
-import { FormEventHandler } from "react";
 
 interface Props {
     children: React.ReactNode;
@@ -65,17 +65,22 @@ const FormWrapper = ({
     step,
     onContinue: customOnContinue,
 }: Props) => {
-    const { actions } = useStateMachine({
+    const { state, actions } = useStateMachine({
         setFormData,
         toNextStep,
         toPrevStep,
     });
+    const { totalStep } = state.registerCompany;
 
-    const onContinue: FormEventHandler = (e) => {
+    const onContinue: FormEventHandler = async (e) => {
         e.preventDefault();
+
         actions.setFormData({ field, data });
-        actions.toNextStep();
-        customOnContinue && customOnContinue();
+        customOnContinue && (await customOnContinue());
+
+        if (step !== totalStep) {
+            actions.toNextStep();
+        }
     };
 
     return (
@@ -93,23 +98,29 @@ const FormWrapper = ({
                 <>{children}</>
 
                 {/* BUTTONS */}
-                <div className="mt-5">
+                <div className="mt-5 flex flex-col text-center md:flex-row">
                     <button
                         className="gradient-button px-6"
                         disabled={!isValid}
                         type={"submit"}
                     >
-                        Lanjut
+                        {step !== totalStep
+                            ? "Lanjut"
+                            : "Selesaikan Pendaftaran"}
                     </button>
+
                     {step === 1 ? (
-                        <PageLink href="/" className="px-6">
+                        <PageLink
+                            href="/"
+                            className="px-6 py-6 md:py-0 text-slate-500 font-semibold flex items-center justify-center"
+                        >
                             Batal
                         </PageLink>
                     ) : (
                         <button
                             onClick={() => actions.toPrevStep()}
                             type={"button"}
-                            className="px-6"
+                            className="px-6 py-6 md:py-0 text-slate-500 font-semibold flex items-center justify-center"
                         >
                             Kembali
                         </button>
