@@ -1,5 +1,10 @@
+import {
+    DetailedHTMLProps,
+    InputHTMLAttributes,
+    forwardRef,
+    ForwardedRef,
+} from "react";
 import cn from "classnames";
-import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 interface Props
     extends DetailedHTMLProps<
@@ -8,15 +13,24 @@ interface Props
     > {
     label: string;
     containerClassName?: string;
+    error?: string;
 }
 
-const Input = ({ label, className, containerClassName, ...props }: Props) => {
-    return (
-        <label className={cn("input-group", containerClassName)}>
-            <span>{label}</span>
-            <input {...props} />
-        </label>
-    );
-};
+const Input = forwardRef(
+    (
+        { label, className, containerClassName, error, ...props }: Props,
+        ref: ForwardedRef<HTMLInputElement>
+    ) => {
+        return (
+            <label className={cn("input-group", containerClassName)}>
+                <span>{label}</span>
+                <input {...props} ref={ref} />
+                {error && (
+                    <small className="text-red-500 text-xs">{error}</small>
+                )}
+            </label>
+        );
+    }
+);
 
 export default Input;

@@ -23,7 +23,8 @@
     "rules": {
         "react/react-in-jsx-scope": "off",
         "require-jsdoc": "off",
-        "new-cap": "off"
+        "new-cap": "off",
+        "react/display-name": "off"
     },
     "settings": {
         "react": {

@@ -8,6 +8,10 @@
         -webkit-tap-highlight-color: transparent;
     }
 
+    *:disabled {
+        @apply opacity-50 pointer-events-none grayscale;
+    }
+
     input[type="checkbox"] {
         @apply rounded     
         cursor-pointer border-2 dark:bg-transparent dark:checked:bg-teal-500
