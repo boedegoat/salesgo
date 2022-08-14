@@ -10,8 +10,6 @@ import {
 import { useGlobalState } from "@/hooks";
 import { useMediaQuery } from "usehooks-ts";
 
-// TODO: create form flow -> admin data, admin password, company data
-// TODO: use react-hook-form for handling forms
 const RegisterCompany = () => {
     const { theme } = useTheme();
     const isMobile = useMediaQuery("(max-width: 768px)");
@@ -39,7 +37,7 @@ const RegisterCompany = () => {
                     isMobile && theme === "dark" ? "700px -250px" : "auto",
             }}
         >
-            <div className="bg-white dark:bg-slate-900 md:w-[50%] p-5 md:p-12 rounded-tl-2xl rounded-tr-2xl md:rounded-tl-none md:rounded-br-2xl shadow-2xl">
+            <div className="bg-white dark:bg-slate-900 md:w-[50%] p-5 md:p-12 rounded-tl-2xl rounded-tr-2xl md:rounded-tl-none md:rounded-br-2xl shadow-2xl overflow-auto scrollbar-hide">
                 <h1 className="font-bold text-3xl dark:text-white">
                     Daftarkan Perusahaan Anda
                 </h1>

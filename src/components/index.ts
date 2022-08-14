@@ -4,6 +4,7 @@ export { default as Needs } from "./global/Needs";
 export { default as Loader } from "./global/Loader";
 export { default as OfflineIndicator } from "./global/OfflineIndicator";
 export { default as Input } from "./global/Input";
+export { default as Select } from "./global/Select";
 export { default as RoleBadge } from "./global/RoleBadge";
 
 export { default as Greetings } from "./app/Greetings";

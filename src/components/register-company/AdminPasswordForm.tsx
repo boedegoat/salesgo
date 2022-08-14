@@ -19,6 +19,7 @@ const schema = yup
             .min(8, "Password minimal 8 karakter"),
         passwordConfirmation: yup
             .string()
+            .required()
             .oneOf([yup.ref("password"), null], "Password harus sama"),
     })
     .required();
