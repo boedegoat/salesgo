@@ -16,12 +16,6 @@ const RegisterCompany = () => {
     const { state } = useGlobalState();
     const { step, totalStep } = state.registerCompany;
 
-    const steps: { [x: number]: JSX.Element } = {
-        1: <AdminGeneralForm />,
-        2: <AdminPasswordForm />,
-        3: <CompanyForm />,
-    };
-
     return (
         <Container
             noBottomNav
@@ -55,7 +49,16 @@ const RegisterCompany = () => {
 
                 {/* FORMS */}
                 <div className="overflow-hidden">
-                    <div className="flex">{steps[step]}</div>
+                    <div
+                        className="flex"
+                        style={{
+                            transform: `translateX(-${(step - 1) * 100}%)`,
+                        }}
+                    >
+                        <AdminGeneralForm />
+                        <AdminPasswordForm />
+                        <CompanyForm />
+                    </div>
                 </div>
             </div>
 
