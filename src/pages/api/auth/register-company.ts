@@ -7,12 +7,16 @@ import { sendAuthToken } from "@/utils/authToken";
 const registerCompany = handler();
 
 registerCompany.post(async (req, res, next) => {
-    const { manager, company } = req.body;
+    const { admin, company } = req.body;
 
     const newCompany = await db.company.create({
         data: {
             name: company.name,
-            country: company.country,
+            province: company.province,
+            city: company.city,
+            district: company.district,
+            village: company.village,
+            postalCode: company.postalCode,
             address: company.address,
         },
     });
@@ -22,7 +26,7 @@ registerCompany.post(async (req, res, next) => {
 
         const isEmailExist = await db.employee.findFirst({
             where: {
-                email: manager.email,
+                email: admin.email,
             },
         });
         if (isEmailExist) {
@@ -31,7 +35,7 @@ registerCompany.post(async (req, res, next) => {
 
         const isPhoneNumberExist = await db.employee.findFirst({
             where: {
-                phoneNumber: manager.phoneNumber,
+                phoneNumber: admin.phoneNumber,
             },
         });
         if (isPhoneNumberExist) {
@@ -42,17 +46,17 @@ registerCompany.post(async (req, res, next) => {
             throw new ApiError(errors.join("\n"), StatusCodes.BAD_REQUEST);
         }
 
-        const hashedPassword = await hashPassword(manager.password);
+        const hashedPassword = await hashPassword(admin.password);
 
         // eslint-disable-next-line no-unused-vars
-        const { password, ...newManager } = await db.employee.create({
+        const { password, ...newAdmin } = await db.employee.create({
             data: {
-                name: manager.name,
-                email: manager.email,
-                phoneNumber: manager.phoneNumber,
-                role: "Manager",
+                name: admin.name,
+                email: admin.email,
+                phoneNumber: admin.phoneNumber,
+                role: "Admin",
                 password: hashedPassword,
-                employeeId: manager.employeeId,
+                employeeId: admin.employeeId,
                 companyId: newCompany.id,
             },
         });
@@ -60,13 +64,13 @@ registerCompany.post(async (req, res, next) => {
         const { accessToken } = sendAuthToken({
             req,
             res,
-            id: newManager.id,
+            id: newAdmin.id,
         });
 
         sendResponse(res, {
             status: StatusCodes.CREATED,
             message: "Berhasil mendaftarkan perusahaan",
-            user: newManager,
+            employee: newAdmin,
             accessToken: accessToken.token,
         });
     } catch (err) {

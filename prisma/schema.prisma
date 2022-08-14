@@ -11,6 +11,7 @@ datasource db {
 }
 
 enum Role {
+    Admin
     Manager
     Supervisor
     Sales
@@ -18,8 +19,6 @@ enum Role {
 
 model Employee {
     id          String   @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
     name        String
     email       String   @unique
     phoneNumber String   @unique
@@ -28,14 +27,20 @@ model Employee {
     employeeId  String?
     company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
     companyId   String   @db.ObjectId
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }
 
 model Company {
-    id        String     @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime   @default(now())
-    updatedAt DateTime   @updatedAt
-    name      String
-    country   String
-    address   String
-    employees Employee[]
+    id         String     @id @default(auto()) @map("_id") @db.ObjectId
+    name       String
+    province   String
+    city       String
+    district   String
+    village    String
+    postalCode String
+    address    String
+    employees  Employee[]
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @updatedAt
 }
