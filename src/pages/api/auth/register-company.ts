@@ -24,20 +24,23 @@ registerCompany.post(async (req, res, next) => {
     try {
         const errors = [];
 
-        const isEmailExist = await db.employee.findFirst({
-            where: {
-                email: admin.email,
-            },
-        });
+        const [isEmailExist, isPhoneNumberExist] = await Promise.all([
+            db.employee.findFirst({
+                where: {
+                    email: admin.email,
+                },
+            }),
+            db.employee.findFirst({
+                where: {
+                    phoneNumber: admin.phoneNumber,
+                },
+            }),
+        ]);
+
         if (isEmailExist) {
             errors.push("Email sudah dipakai");
         }
 
-        const isPhoneNumberExist = await db.employee.findFirst({
-            where: {
-                phoneNumber: admin.phoneNumber,
-            },
-        });
         if (isPhoneNumberExist) {
             errors.push("Nomor HP sudah dipakai");
         }
