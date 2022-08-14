@@ -33,7 +33,7 @@ const schema = yup
     })
     .required();
 
-const AdminGeneralForm = ({ step }: { step: number }) => {
+const AdminGeneralForm = () => {
     const form = useForm<FormData>({
         resolver: yupResolver(schema),
         mode: "onChange",
@@ -86,7 +86,6 @@ const AdminGeneralForm = ({ step }: { step: number }) => {
 
     return (
         <FormWrapper
-            step={step}
             title="Lengkapi Data Admin Perusahaan"
             description={
                 <>

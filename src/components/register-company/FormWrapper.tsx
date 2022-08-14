@@ -10,7 +10,6 @@ interface Props {
     isValid: boolean;
     field: "admin" | "company";
     data: CustomObject;
-    step: number;
     onContinue?: () => void;
 }
 
@@ -21,11 +20,10 @@ const FormWrapper = ({
     isValid,
     field,
     data,
-    step,
     onContinue: customOnContinue,
 }: Props) => {
     const { state, dispatch } = useGlobalState();
-    const { totalStep } = state.registerCompany;
+    const { step, totalStep } = state.registerCompany;
 
     const onContinue: FormEventHandler = async (e) => {
         e.preventDefault();

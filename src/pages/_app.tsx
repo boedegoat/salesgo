@@ -4,7 +4,7 @@ import { OfflineIndicator } from "@/components";
 import "@/styles/globals.css";
 
 import { store, persistor } from "../store";
-import withRedux from "next-redux-wrapper";
+import { createWrapper } from "next-redux-wrapper";
 import { PersistGate } from "redux-persist/integration/react";
 
 const MyApp = ({
@@ -22,8 +22,9 @@ const MyApp = ({
 };
 
 const makeStore = () => store;
+const wrapper = createWrapper(makeStore);
 
-export default withRedux(makeStore)(MyApp);
+export default wrapper.withRedux(MyApp);
 
 const MyComponent = ({ Component, pageProps }: AppProps) => {
     return <Component {...pageProps} />;

@@ -61,7 +61,7 @@ const getVillages = async (villageId: number) => {
     return (await res.json()).kelurahan;
 };
 
-const CompanyForm = ({ step }: { step: number }) => {
+const CompanyForm = () => {
     const form = useForm<FormData>({
         resolver: yupResolver(schema),
         mode: "onChange",
@@ -134,7 +134,6 @@ const CompanyForm = ({ step }: { step: number }) => {
         <FormWrapper
             title="Lengkapi data perusahaan"
             description="Silahkan isi data perusahaan Anda"
-            step={step}
             field="company"
             isValid={isValid}
             data={getValues()}

@@ -10,7 +10,6 @@ const Home = () => {
 
     return (
         <Container wrapper title="Sales Tracker" noBottomNav>
-            {/* top section */}
             <section className="md:mt-16 flex flex-col md:flex-row text-center md:text-left">
                 <div className="relative w-full h-[200px] md:h-auto md:max-w-[600px]">
                     <Image

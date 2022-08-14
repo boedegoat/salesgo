@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useTheme } from "next-themes";
 import { MenuIcon } from "@heroicons/react/outline";
 import { Container } from "@/components";
@@ -17,11 +16,11 @@ const RegisterCompany = () => {
     const { state } = useGlobalState();
     const { step, totalStep } = state.registerCompany;
 
-    useEffect(() => {
-        document.getElementById(step.toString())?.scrollIntoView({
-            behavior: "smooth",
-        });
-    }, [step]);
+    const steps: { [x: number]: JSX.Element } = {
+        1: <AdminGeneralForm />,
+        2: <AdminPasswordForm />,
+        3: <CompanyForm />,
+    };
 
     return (
         <Container
@@ -56,11 +55,7 @@ const RegisterCompany = () => {
 
                 {/* FORMS */}
                 <div className="overflow-hidden">
-                    <div className="flex space-x-10">
-                        <AdminGeneralForm step={1} />
-                        <AdminPasswordForm step={2} />
-                        <CompanyForm step={3} />
-                    </div>
+                    <div className="flex">{steps[step]}</div>
                 </div>
             </div>
 

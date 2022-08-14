@@ -19,12 +19,12 @@ const schema = yup
             .min(8, "Password minimal 8 karakter"),
         passwordConfirmation: yup
             .string()
-            .required()
+            .required("Harap masukkan ulang password anda")
             .oneOf([yup.ref("password"), null], "Password harus sama"),
     })
     .required();
 
-const AdminPasswordForm = ({ step }: { step: number }) => {
+const AdminPasswordForm = () => {
     const form = useForm<FormData>({
         resolver: yupResolver(schema),
         mode: "onChange",
@@ -53,7 +53,6 @@ const AdminPasswordForm = ({ step }: { step: number }) => {
                     perusahaan Anda
                 </>
             }
-            step={step}
             field="admin"
             isValid={isValid}
             data={getValues()}
