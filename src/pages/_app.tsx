@@ -1,27 +1,11 @@
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
-import { createStore, StateMachineProvider } from "little-state-machine";
 import { OfflineIndicator } from "@/components";
 import "@/styles/globals.css";
 
-if (typeof window !== "undefined") {
-    createStore(
-        {
-            registerCompany: {
-                formData: {
-                    admin: {},
-                    company: {},
-                },
-                step: 1,
-                totalStep: 3,
-            },
-        },
-        {
-            name: "global-state",
-            storageType: localStorage,
-        }
-    );
-}
+import { store, persistor } from "../store";
+import withRedux from "next-redux-wrapper";
+import { PersistGate } from "redux-persist/integration/react";
 
 const MyApp = ({
     Component,
@@ -29,15 +13,17 @@ const MyApp = ({
 }: AppProps) => {
     return (
         <ThemeProvider enableSystem attribute="class">
-            <StateMachineProvider>
+            <PersistGate loading={null} persistor={persistor}>
                 <OfflineIndicator />
                 <MyComponent {...{ Component, ...pageProps }} />
-            </StateMachineProvider>
+            </PersistGate>
         </ThemeProvider>
     );
 };
 
-export default MyApp;
+const makeStore = () => store;
+
+export default withRedux(makeStore)(MyApp);
 
 const MyComponent = ({ Component, pageProps }: AppProps) => {
     return <Component {...pageProps} />;

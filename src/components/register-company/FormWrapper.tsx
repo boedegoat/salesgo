@@ -1,6 +1,7 @@
 import { FormEventHandler } from "react";
-import { GlobalState, useStateMachine } from "little-state-machine";
 import { PageLink } from "@/components";
+import { registerCompany as rc } from "@/store/registerCompanySlice";
+import { useGlobalState } from "@/hooks";
 
 interface Props {
     children: React.ReactNode;
@@ -13,48 +14,6 @@ interface Props {
     onContinue?: () => void;
 }
 
-type SetFormDataPayload = { field: "admin" | "company"; data: any };
-
-const setFormData = (
-    state: GlobalState,
-    { field, data }: SetFormDataPayload
-): GlobalState => {
-    const newFormData = { ...state.registerCompany.formData };
-
-    newFormData[field] = {
-        ...newFormData[field],
-        ...data,
-    };
-
-    return {
-        ...state,
-        registerCompany: {
-            ...state.registerCompany,
-            formData: newFormData,
-        },
-    };
-};
-
-const toNextStep = (state: GlobalState): GlobalState => {
-    return {
-        ...state,
-        registerCompany: {
-            ...state.registerCompany,
-            step: state.registerCompany.step + 1,
-        },
-    };
-};
-
-const toPrevStep = (state: GlobalState): GlobalState => {
-    return {
-        ...state,
-        registerCompany: {
-            ...state.registerCompany,
-            step: state.registerCompany.step - 1,
-        },
-    };
-};
-
 const FormWrapper = ({
     children,
     title,
@@ -65,21 +24,23 @@ const FormWrapper = ({
     step,
     onContinue: customOnContinue,
 }: Props) => {
-    const { state, actions } = useStateMachine({
-        setFormData,
-        toNextStep,
-        toPrevStep,
-    });
+    const { state, dispatch } = useGlobalState();
     const { totalStep } = state.registerCompany;
 
     const onContinue: FormEventHandler = async (e) => {
         e.preventDefault();
 
-        actions.setFormData({ field, data });
+        if (field === "admin") {
+            dispatch(rc.setAdminData(data));
+        }
+        if (field === "company") {
+            dispatch(rc.setCompanyData(data));
+        }
+
         customOnContinue && (await customOnContinue());
 
         if (step !== totalStep) {
-            actions.toNextStep();
+            dispatch(rc.toNextStep());
         }
     };
 
@@ -118,7 +79,7 @@ const FormWrapper = ({
                         </PageLink>
                     ) : (
                         <button
-                            onClick={() => actions.toPrevStep()}
+                            onClick={() => dispatch(rc.toPrevStep())}
                             type={"button"}
                             className="px-6 py-6 md:py-0 text-slate-500 font-semibold flex items-center justify-center"
                         >

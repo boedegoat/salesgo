@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useStateMachine } from "little-state-machine";
 import { Input, PageLink, RoleBadge } from "@/components";
 import FormWrapper from "./FormWrapper";
+import { useGlobalState } from "@/hooks";
 
 type FormData = {
     name: string;
@@ -45,7 +45,7 @@ const AdminGeneralForm = ({ step }: { step: number }) => {
     const [isEmailUnique, setIsEmailUnique] = useState(false);
     const [isPhoneNumberUnique, setIsPhoneNumberUnique] = useState(false);
 
-    const { state } = useStateMachine();
+    const { state } = useGlobalState();
     const { name, email, phoneNumber, termsOfService } =
         state.registerCompany.formData.admin;
 

@@ -1,10 +1,10 @@
-import FormWrapper from "./FormWrapper";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import FormWrapper from "./FormWrapper";
 import { Input } from "@/components";
-import { useEffect, useState } from "react";
-import { useStateMachine } from "little-state-machine";
+import { useGlobalState } from "@/hooks";
 
 type FormData = {
     name: string;
@@ -45,7 +45,7 @@ const CompanyForm = ({ step }: { step: number }) => {
         fetchCountries();
     }, []);
 
-    const { state } = useStateMachine();
+    const { state } = useGlobalState();
     const { formData } = state.registerCompany;
 
     const registerCompany = async () => {

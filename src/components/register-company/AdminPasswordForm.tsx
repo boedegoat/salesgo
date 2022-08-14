@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { useStateMachine } from "little-state-machine";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import FormWrapper from "./FormWrapper";
 import { Input, RoleBadge } from "@/components";
+import { useGlobalState } from "@/hooks";
 
 type FormData = {
     password: string;
@@ -32,7 +32,7 @@ const AdminPasswordForm = ({ step }: { step: number }) => {
     const { register, formState, getValues, setValue } = form;
     const { errors, isValid } = formState;
 
-    const { state } = useStateMachine();
+    const { state } = useGlobalState();
     const { password, passwordConfirmation } =
         state.registerCompany.formData.admin;
 
