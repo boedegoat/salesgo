@@ -5,6 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FormWrapper from "./FormWrapper";
 import { Input, Select } from "@/components";
 import { useGlobalState } from "@/hooks";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { setAccessToken } from "@/utils/authToken";
 
 type FormData = {
     name: string;
@@ -124,10 +128,31 @@ const CompanyForm = () => {
 
     const { state } = useGlobalState();
     const { formData } = state.registerCompany;
+    const router = useRouter();
 
     const registerCompany = async () => {
-        alert("register company");
-        console.log(formData);
+        let toastId = "";
+
+        try {
+            toastId = toast.loading(`Mendaftarkan ${formData.company.name}...`);
+
+            const { data } = await axios.post(
+                "/api/auth/register-company",
+                formData
+            );
+            console.log({ data });
+            setAccessToken(data.accessToken);
+
+            toast.success(`${formData.company.name} berhasil terdaftar`, {
+                id: toastId,
+            });
+
+            router.push("/cms/home");
+        } catch (err: any) {
+            console.log({ err });
+            const errMessage = err.response.data.message;
+            toast.error(errMessage, { id: toastId });
+        }
     };
 
     return (
