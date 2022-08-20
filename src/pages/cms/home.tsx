@@ -1,14 +1,7 @@
-import { Needs } from "@/components";
-import { Role } from "@prisma/client";
+import { CMSContainer } from "@/components/cms";
 
-const services = {
-    auth: {
-        role: Role.Manager,
-    },
+const CMSHome = () => {
+    return <CMSContainer title="Home">Life could be dream</CMSContainer>;
 };
-
-const CMSHome = Needs(services, () => {
-    return <div>CMSHome</div>;
-});
 
 export default CMSHome;
