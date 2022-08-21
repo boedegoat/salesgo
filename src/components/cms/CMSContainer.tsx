@@ -68,6 +68,7 @@ const CMSContainer = ({ title, children }: Props) => {
                         <NavLink
                             active={true}
                             href="/overview"
+                            label="Overview"
                             icon={HomeOutlined}
                             activeIcon={Home}
                             navMinimized={navMinimized}
@@ -75,6 +76,7 @@ const CMSContainer = ({ title, children }: Props) => {
                         <NavLink
                             active={false}
                             href="/stores"
+                            label="Toko"
                             icon={StoreOutlined}
                             activeIcon={Store}
                             navMinimized={navMinimized}
@@ -89,6 +91,7 @@ const CMSContainer = ({ title, children }: Props) => {
                         <NavLink
                             active={false}
                             href="/settings"
+                            label="Pengaturan"
                             icon={SettingsOutlined}
                             activeIcon={Settings}
                             navMinimized={navMinimized}

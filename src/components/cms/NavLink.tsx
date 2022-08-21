@@ -5,6 +5,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 interface Props {
     href: string;
+    label?: string;
     icon: any;
     activeIcon: any;
     active: boolean;
@@ -17,8 +18,9 @@ const NavLink = ({
     activeIcon: ActiveIcon,
     active,
     navMinimized,
+    label: propsLabel,
 }: Props) => {
-    const label = capitalize(href.replace("/", ""));
+    const label = propsLabel || capitalize(href.replace("/", ""));
 
     return (
         <PageLink
