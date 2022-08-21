@@ -8,7 +8,7 @@ import Home from "@mui/icons-material/Home";
 import HomeOutlined from "@mui/icons-material/HomeOutlined";
 import KeyboardDoubleArrowLeft from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRight from "@mui/icons-material/KeyboardDoubleArrowRight";
-// import NotificationsOutlined from "@mui/icons-material/NotificationsOutlined";
+import NotificationsOutlined from "@mui/icons-material/NotificationsOutlined";
 import Person from "@mui/icons-material/Person";
 import PersonOutlined from "@mui/icons-material/PersonOutlined";
 import Settings from "@mui/icons-material/Settings";
@@ -19,8 +19,11 @@ import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
 
 // Components
-// import Badge from "@mui/material/Badge";
+import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
+import Avatar from "@mui/material/Avatar";
+import Chip from "@mui/material/Chip";
+import NotificationMenu from "./NotificationMenu";
 
 interface Props {
     title: string;
@@ -29,11 +32,12 @@ interface Props {
 
 const CMSContainer = ({ title, children }: Props) => {
     const [navMinimized, setNavMinimized] = useState(false);
+    const [notifEl, setNotifEl] = useState<null | HTMLElement>(null);
 
     return (
         <main className="bg-slate-50">
             <Head>
-                <title>{`${title} - SalesGo Dashboard`}</title>
+                <title>{`${title} - SalesGo CMS`}</title>
             </Head>
             <div className="flex overflow-hidden">
                 {/* NAVIGATION */}
@@ -61,7 +65,7 @@ const CMSContainer = ({ title, children }: Props) => {
                     <div className="flex flex-col">
                         <NavLink
                             active={true}
-                            href="/home"
+                            href="/overview"
                             icon={HomeOutlined}
                             activeIcon={Home}
                             navMinimized={navMinimized}
@@ -108,6 +112,43 @@ const CMSContainer = ({ title, children }: Props) => {
 
                 {/* BODY */}
                 <div className="w-full px-20 py-11 overflow-auto">
+                    <header className="flex items-center justify-between">
+                        <h1 className="font-bold text-xl">{title}</h1>
+                        <div className="flex items-center space-x-4">
+                            {/* NOTIFICATIONS */}
+                            <IconButton
+                                onClick={(e) => setNotifEl(e.currentTarget)}
+                            >
+                                <Badge
+                                    badgeContent={5}
+                                    componentsProps={{
+                                        badge: {
+                                            className: "bg-teal-500 text-white",
+                                        },
+                                    }}
+                                >
+                                    <NotificationsOutlined fontSize="medium" />
+                                </Badge>
+                            </IconButton>
+                            <NotificationMenu
+                                notifEl={notifEl}
+                                onClose={() => setNotifEl(null)}
+                            />
+
+                            {/* AVATAR */}
+                            <Chip
+                                avatar={
+                                    <Avatar
+                                        src="https://mui.com/static/images/avatar/1.jpg"
+                                        sx={{ width: 30, height: 30 }}
+                                    />
+                                }
+                                label="Admin"
+                                className="font-semibold bg-transparent"
+                                clickable
+                            />
+                        </div>
+                    </header>
                     {children}
                 </div>
             </div>

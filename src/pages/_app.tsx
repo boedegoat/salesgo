@@ -1,17 +1,42 @@
+import "@/styles/globals.css";
+import { useEffect } from "react";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
-import { GlobalCssPriority, OfflineIndicator } from "@/components";
-import "@/styles/globals.css";
-
+import {
+    createTheme,
+    StyledEngineProvider,
+    ThemeProvider as MuiThemeProvider,
+} from "@mui/material/styles";
+import { OfflineIndicator } from "@/components";
 import { store, persistor } from "../store";
 import { createWrapper } from "next-redux-wrapper";
 import { PersistGate } from "redux-persist/integration/react";
-import { useEffect } from "react";
-import { useGlobalState } from "@/hooks";
 import { auth } from "@/store/authSlice";
+import { useGlobalState } from "@/hooks";
 import { getAccessToken } from "@/utils/authToken";
+
+const rootElement =
+    typeof window !== "undefined" ? document.getElementById("__next") : null;
+
+const theme = createTheme({
+    typography: {
+        fontFamily: "inherit",
+    },
+    components: {
+        MuiPopover: {
+            defaultProps: {
+                container: rootElement,
+            },
+        },
+        MuiPopper: {
+            defaultProps: {
+                container: rootElement,
+            },
+        },
+    },
+});
 
 const MyApp = ({
     Component,
@@ -22,9 +47,11 @@ const MyApp = ({
             <PersistGate loading={null} persistor={persistor}>
                 <Toaster />
                 <OfflineIndicator />
-                <GlobalCssPriority>
-                    <MyComponent {...{ Component, ...pageProps }} />
-                </GlobalCssPriority>
+                <StyledEngineProvider injectFirst>
+                    <MuiThemeProvider theme={theme}>
+                        <MyComponent {...{ Component, ...pageProps }} />
+                    </MuiThemeProvider>
+                </StyledEngineProvider>
             </PersistGate>
         </ThemeProvider>
     );

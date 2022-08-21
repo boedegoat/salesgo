@@ -1,7 +1,7 @@
 import { CMSContainer } from "@/components/cms";
 
 const CMSHome = () => {
-    return <CMSContainer title="Home">Life could be dream</CMSContainer>;
+    return <CMSContainer title="Overview"> </CMSContainer>;
 };
 
 export default CMSHome;
