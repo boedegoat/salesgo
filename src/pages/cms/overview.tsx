@@ -1,10 +1,15 @@
+import dynamic from "next/dynamic";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import GroupIcon from "@mui/icons-material/Group";
 
 import { CMSContainer } from "@/components/cms";
 import { SalesmanList } from "@/components/cms/overview";
 
-const CMSHome = () => {
+const Overview = () => {
+    const Map = dynamic(() => import("@/components/cms/overview/Map"), {
+        ssr: false,
+    });
+
     return (
         <CMSContainer title="Overview">
             {/* SUMMARY SECTION */}
@@ -34,7 +39,7 @@ const CMSHome = () => {
                     </div>
                 </div>
                 <div className="w-full rounded-xl flex items-center justify-center shadow-xl shadow-slate-200">
-                    Google Map
+                    <Map />
                 </div>
             </section>
 
@@ -51,4 +56,4 @@ const CMSHome = () => {
     );
 };
 
-export default CMSHome;
+export default Overview;

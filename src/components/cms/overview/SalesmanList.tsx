@@ -9,8 +9,8 @@ const columns: GridColDef[] = [
     { field: "id", headerName: "Nomor", width: 50 },
     { field: "name", headerName: "Nama Lengkap", width: 250 },
     {
-        field: "totalVisit",
-        headerName: "Total Kunjungan",
+        field: "targetVisit",
+        headerName: "Target Kunjungan",
         type: "number",
         width: 150,
     },
@@ -26,9 +26,10 @@ const columns: GridColDef[] = [
         type: "number",
         width: 120,
         valueGetter: (params) =>
-            `${((params.row.actualVisit / params.row.totalVisit) * 100).toFixed(
-                1
-            )} %`,
+            `${(
+                (params.row.actualVisit / params.row.targetVisit) *
+                100
+            ).toFixed(1)} %`,
     },
     {
         field: "menu",
@@ -46,11 +47,11 @@ const columns: GridColDef[] = [
 ];
 
 const rows = [
-    { id: 1, name: "Mang Ujang", totalVisit: 30, actualVisit: 25 },
-    { id: 2, name: "Mang Otong", totalVisit: 30, actualVisit: 30 },
-    { id: 3, name: "Pak Thrio", totalVisit: 30, actualVisit: 30 },
-    { id: 4, name: "Bung Karno", totalVisit: 30, actualVisit: 30 },
-    { id: 5, name: "Mang Udin", totalVisit: 30, actualVisit: 20 },
+    { id: 1, name: "Mang Ujang", targetVisit: 30, actualVisit: 25 },
+    { id: 2, name: "Mang Otong", targetVisit: 30, actualVisit: 30 },
+    { id: 3, name: "Pak Thrio", targetVisit: 30, actualVisit: 30 },
+    { id: 4, name: "Bung Karno", targetVisit: 30, actualVisit: 30 },
+    { id: 5, name: "Mang Udin", targetVisit: 30, actualVisit: 20 },
 ];
 
 const SalesmanList = () => {

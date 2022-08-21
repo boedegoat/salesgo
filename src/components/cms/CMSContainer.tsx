@@ -151,7 +151,7 @@ const CMSContainer = ({ title, children }: Props) => {
                                 label={
                                     <div>
                                         <div className="font-semibold max-w-[15ch] truncate">
-                                            Thrio Haryanto
+                                            Hamid Jaja
                                         </div>
                                         <div className="text-xs text-teal-500">
                                             Supervisor
