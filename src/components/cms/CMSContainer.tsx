@@ -116,8 +116,8 @@ const CMSContainer = ({ title, children }: Props) => {
                 </nav>
 
                 {/* BODY */}
-                <div className="w-full px-20 py-11 overflow-auto">
-                    <header className="flex items-center justify-between">
+                <div className="w-full px-20 py-11 h-screen overflow-auto">
+                    <header className="flex items-center justify-between mb-10">
                         <h1 className="font-bold text-xl">{title}</h1>
                         <div className="flex items-center space-x-5">
                             {/* NOTIFICATIONS */}
@@ -168,7 +168,7 @@ const CMSContainer = ({ title, children }: Props) => {
                             />
                         </div>
                     </header>
-                    {children}
+                    <div className="space-y-10">{children}</div>
                 </div>
             </div>
         </main>
