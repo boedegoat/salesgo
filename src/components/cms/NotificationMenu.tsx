@@ -1,6 +1,6 @@
-import Menu from "@mui/material/Menu";
 import ListItem from "@mui/material/ListItem";
 import classNames from "classnames";
+import { Menu } from "@/components";
 
 interface Props {
     notifEl: HTMLElement | null;
@@ -33,25 +33,7 @@ const dummyNotif = [
 
 const NotificationMenu = ({ notifEl, onClose }: Props) => {
     return (
-        <Menu
-            anchorEl={notifEl}
-            open={Boolean(notifEl)}
-            onClose={onClose}
-            anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-            }}
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            PaperProps={{
-                className: "shadow-md shadow-slate-200/50 rounded-xl",
-            }}
-            MenuListProps={{
-                className: "max-w-[320px] py-0",
-            }}
-        >
+        <Menu anchorEl={notifEl} onClose={onClose}>
             <div className="p-4 flex justify-between">
                 <h3 className="font-bold">Notifikasi</h3>
                 <button className="text-sm font-medium text-slate-600 hover:text-teal-500">

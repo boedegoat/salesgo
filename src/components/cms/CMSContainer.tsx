@@ -24,6 +24,7 @@ import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
 import NotificationMenu from "./NotificationMenu";
+import AvatarMenu from "./AvatarMenu";
 
 interface Props {
     title: string;
@@ -33,6 +34,7 @@ interface Props {
 const CMSContainer = ({ title, children }: Props) => {
     const [navMinimized, setNavMinimized] = useState(false);
     const [notifEl, setNotifEl] = useState<null | HTMLElement>(null);
+    const [avatarEl, setAvatarEl] = useState<null | HTMLElement>(null);
 
     return (
         <main className="bg-slate-50">
@@ -114,7 +116,7 @@ const CMSContainer = ({ title, children }: Props) => {
                 <div className="w-full px-20 py-11 overflow-auto">
                     <header className="flex items-center justify-between">
                         <h1 className="font-bold text-xl">{title}</h1>
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-5">
                             {/* NOTIFICATIONS */}
                             <IconButton
                                 onClick={(e) => setNotifEl(e.currentTarget)}
@@ -140,12 +142,26 @@ const CMSContainer = ({ title, children }: Props) => {
                                 avatar={
                                     <Avatar
                                         src="https://mui.com/static/images/avatar/1.jpg"
-                                        sx={{ width: 30, height: 30 }}
+                                        className="w-8 h-8"
                                     />
                                 }
-                                label="Admin"
+                                label={
+                                    <div>
+                                        <div className="font-semibold max-w-[15ch] truncate">
+                                            Thrio Haryanto
+                                        </div>
+                                        <div className="text-xs text-teal-500">
+                                            Supervisor
+                                        </div>
+                                    </div>
+                                }
                                 className="font-semibold bg-transparent"
                                 clickable
+                                onClick={(e) => setAvatarEl(e.currentTarget)}
+                            />
+                            <AvatarMenu
+                                avatarEl={avatarEl}
+                                onClose={() => setAvatarEl(null)}
                             />
                         </div>
                     </header>
