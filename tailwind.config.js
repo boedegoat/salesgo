@@ -7,6 +7,7 @@ module.exports = {
         "./src/pages/**/*.{js,ts,jsx,tsx}",
         "./src/components/**/*.{js,ts,jsx,tsx}",
     ],
+    important: "#__next",
     theme: {
         fontFamily: {
             sans: ["Inter", ...defaultTheme.fontFamily.sans],

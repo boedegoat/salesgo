@@ -2,7 +2,7 @@ import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
-import { OfflineIndicator } from "@/components";
+import { GlobalCssPriority, OfflineIndicator } from "@/components";
 import "@/styles/globals.css";
 
 import { store, persistor } from "../store";
@@ -22,7 +22,9 @@ const MyApp = ({
             <PersistGate loading={null} persistor={persistor}>
                 <Toaster />
                 <OfflineIndicator />
-                <MyComponent {...{ Component, ...pageProps }} />
+                <GlobalCssPriority>
+                    <MyComponent {...{ Component, ...pageProps }} />
+                </GlobalCssPriority>
             </PersistGate>
         </ThemeProvider>
     );
