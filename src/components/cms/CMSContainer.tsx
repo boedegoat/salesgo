@@ -168,7 +168,7 @@ const CMSContainer = ({ title, children }: Props) => {
                             />
                         </div>
                     </header>
-                    <div className="space-y-10">{children}</div>
+                    <div className="space-y-14">{children}</div>
                 </div>
             </div>
         </main>

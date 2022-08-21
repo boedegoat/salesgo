@@ -9,13 +9,16 @@ import {
     StyledEngineProvider,
     ThemeProvider as MuiThemeProvider,
 } from "@mui/material/styles";
-import { OfflineIndicator } from "@/components";
-import { store, persistor } from "../store";
 import { createWrapper } from "next-redux-wrapper";
 import { PersistGate } from "redux-persist/integration/react";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+
 import { auth } from "@/store/authSlice";
 import { useGlobalState } from "@/hooks";
 import { getAccessToken } from "@/utils/authToken";
+import { OfflineIndicator } from "@/components";
+import { store, persistor } from "../store";
 
 const rootElement =
     typeof window !== "undefined" ? document.getElementById("__next") : null;
@@ -49,7 +52,9 @@ const MyApp = ({
                 <OfflineIndicator />
                 <StyledEngineProvider injectFirst>
                     <MuiThemeProvider theme={theme}>
-                        <MyComponent {...{ Component, ...pageProps }} />
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <MyComponent {...{ Component, ...pageProps }} />
+                        </LocalizationProvider>
                     </MuiThemeProvider>
                 </StyledEngineProvider>
             </PersistGate>

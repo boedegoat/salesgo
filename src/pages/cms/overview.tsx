@@ -1,14 +1,21 @@
 import dynamic from "next/dynamic";
+
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import GroupIcon from "@mui/icons-material/Group";
 
+import TextField from "@mui/material/TextField";
+import { DatePicker } from "@mui/x-date-pickers";
+
 import { CMSContainer } from "@/components/cms";
 import { SalesmanList } from "@/components/cms/overview";
+import { useState } from "react";
+
+const Map = dynamic(() => import("@/components/cms/overview/Map"), {
+    ssr: false,
+});
 
 const Overview = () => {
-    const Map = dynamic(() => import("@/components/cms/overview/Map"), {
-        ssr: false,
-    });
+    const [date, setDate] = useState<Date | null>(new Date());
 
     return (
         <CMSContainer title="Overview">
@@ -45,12 +52,19 @@ const Overview = () => {
 
             {/* SALESMAN LIST */}
             <section>
-                <div>
-                    <div className="font-semibold text-xl mb-5">
-                        Daftar Salesman
-                    </div>
-                    <SalesmanList />
+                <div className="mb-5 flex justify-between">
+                    <div className="font-semibold text-xl">Daftar Salesman</div>
+
+                    <DatePicker
+                        label="Tanggal"
+                        value={date}
+                        onChange={(newDate) => {
+                            setDate(newDate);
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                    />
                 </div>
+                <SalesmanList />
             </section>
         </CMSContainer>
     );
