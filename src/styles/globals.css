@@ -93,3 +93,7 @@
         @apply dark:border-slate-700 dark:bg-slate-800;
     }
 }
+
+.modal.modal-open {
+    z-index: 9999;
+}

@@ -5,6 +5,7 @@ import { SalesmanList } from "@/components/cms/overview";
 import { useState } from "react";
 import { format } from "date-fns";
 import { MapPinIcon, UserGroupIcon } from "@heroicons/react/20/solid";
+import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 
 const Map = dynamic(() => import("@/components/cms/overview/Map"), {
     ssr: false,
@@ -51,16 +52,21 @@ const Overview = () => {
                 <div className="mb-5 flex justify-between">
                     <div className="font-semibold text-xl">Daftar Salesman</div>
 
-                    <input
-                        type="date"
-                        value={format(date, "yyyy-MM-dd")}
-                        onChange={(e) => {
-                            const selectedDate = new Date(e.target.value);
-                            setDate(selectedDate);
-                            alert(selectedDate);
-                        }}
-                        className="rounded-xl focus:ring-teal-500 focus:border-teal-400 cursor-pointer"
-                    />
+                    <label className="flex items-center space-x-4">
+                        <span className="font-medium flex items-center">
+                            <CalendarDaysIcon className="w-5 mr-2" /> Tanggal
+                        </span>
+                        <input
+                            type="date"
+                            value={format(date, "yyyy-MM-dd")}
+                            onChange={(e) => {
+                                const selectedDate = new Date(e.target.value);
+                                setDate(selectedDate);
+                                alert(selectedDate);
+                            }}
+                            className="rounded-xl focus:ring-teal-500 focus:border-teal-400 cursor-pointer border-slate-300 shadow-sm"
+                        />
+                    </label>
                 </div>
                 <SalesmanList />
             </section>
