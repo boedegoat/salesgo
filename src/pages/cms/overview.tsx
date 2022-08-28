@@ -61,14 +61,6 @@ const Overview = () => {
                         }}
                         className="rounded-xl focus:ring-teal-500 focus:border-teal-400 cursor-pointer"
                     />
-                    {/* <DatePicker
-                        label="Tanggal"
-                        value={date}
-                        onChange={(newDate) => {
-                            setDate(newDate);
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                    /> */}
                 </div>
                 <SalesmanList />
             </section>
