@@ -1,5 +1,5 @@
 import { useTheme } from "next-themes";
-import { MenuIcon } from "@heroicons/react/outline";
+import { Bars3Icon as MenuIcon } from "@heroicons/react/24/outline";
 import { Container } from "@/components";
 import {
     AdminGeneralForm,

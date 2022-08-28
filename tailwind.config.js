@@ -7,6 +7,7 @@ module.exports = {
         "./src/pages/**/*.{js,ts,jsx,tsx}",
         "./src/components/**/*.{js,ts,jsx,tsx}",
     ],
+    important: "#__next",
     theme: {
         fontFamily: {
             sans: ["Inter", ...defaultTheme.fontFamily.sans],
@@ -16,5 +17,10 @@ module.exports = {
     plugins: [
         require("tailwind-scrollbar-hide"),
         require("@tailwindcss/forms"),
+        require("daisyui"),
     ],
+    daisyui: {
+        themes: false,
+        base: false,
+    },
 };

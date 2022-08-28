@@ -4,7 +4,7 @@ import {
     forwardRef,
     ForwardedRef,
 } from "react";
-import cn from "classnames";
+import { twMerge } from "tailwind-merge";
 
 interface Props
     extends DetailedHTMLProps<
@@ -22,7 +22,7 @@ const Input = forwardRef(
         ref: ForwardedRef<HTMLInputElement>
     ) => {
         return (
-            <label className={cn("input-group", containerClassName)}>
+            <label className={twMerge("input-group", containerClassName)}>
                 <span>{label}</span>
                 <input {...props} ref={ref} />
                 {error && (

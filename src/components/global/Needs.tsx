@@ -1,6 +1,6 @@
 import { useEmployee } from "@/hooks";
 import { auth } from "@/store/authSlice";
-import { LocationMarkerIcon } from "@heroicons/react/outline";
+import { MapPinIcon } from "@heroicons/react/24/outline";
 import { Role } from "@prisma/client";
 import { NextComponentType, NextPageContext } from "next";
 import Head from "next/head";
@@ -90,7 +90,7 @@ const Needs =
                 return (
                     <Loader
                         Icon={
-                            <LocationMarkerIcon className="text-teal-500 w-20 h-20 mb-5 animate-bounce" />
+                            <MapPinIcon className="text-teal-500 w-20 h-20 mb-5 animate-bounce" />
                         }
                         message="Please turn on your location to continue"
                     />

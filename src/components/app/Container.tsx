@@ -1,12 +1,12 @@
+import { CSSProperties } from "react";
 import Head from "next/head";
-import cn from "classnames";
-import Header from "./Header";
 import {
-    ClipboardListIcon,
+    BuildingStorefrontIcon as StoreIcon,
     HomeIcon,
     UserIcon,
-} from "@heroicons/react/outline";
-import { CSSProperties } from "react";
+} from "@heroicons/react/24/outline";
+import { twMerge } from "tailwind-merge";
+import Header from "./Header";
 
 interface Props {
     children: React.ReactNode;
@@ -24,7 +24,7 @@ const bottomNavButtons = [
         label: "Home",
     },
     {
-        Icon: ClipboardListIcon,
+        Icon: StoreIcon,
         label: "List Toko",
     },
     {
@@ -49,7 +49,7 @@ const Container = ({
             </Head>
             {!noHeader && <Header />}
             <div
-                className={cn(
+                className={twMerge(
                     wrapper === true && "wrapper",
                     wrapper === "mobile" && "wrapper-mobile",
                     className
