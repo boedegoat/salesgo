@@ -1,14 +1,12 @@
 import dynamic from "next/dynamic";
 
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import GroupIcon from "@mui/icons-material/Group";
-
 import TextField from "@mui/material/TextField";
 import { DatePicker } from "@mui/x-date-pickers";
 
 import { CMSContainer } from "@/components/cms";
 import { SalesmanList } from "@/components/cms/overview";
 import { useState } from "react";
+import { MapPinIcon, UserGroupIcon } from "@heroicons/react/20/solid";
 
 const Map = dynamic(() => import("@/components/cms/overview/Map"), {
     ssr: false,
@@ -24,8 +22,8 @@ const Overview = () => {
                 <div className="space-y-8 w-[40%]">
                     {/* TOTAL SALESMAN VISIT */}
                     <div className="p-8 rounded-xl shadow-xl shadow-slate-200">
-                        <div className="font-semibold text-lg">
-                            <LocationOnIcon className="mr-1" />
+                        <div className="font-semibold text-lg flex items-center">
+                            <MapPinIcon className="w-5 mr-1" />
                             Total Kunjungan
                         </div>
                         <div className="text-5xl font-bold mt-1">
@@ -38,8 +36,8 @@ const Overview = () => {
                     </div>
                     {/* SALESMAN TOTAL */}
                     <div className="p-8 rounded-xl shadow-xl shadow-slate-200">
-                        <div className="font-semibold text-lg">
-                            <GroupIcon className="mr-1" />
+                        <div className="font-semibold text-lg flex items-center">
+                            <UserGroupIcon className="w-5 mr-1" />
                             Total Salesman
                         </div>
                         <div className="text-5xl font-bold mt-1">5</div>

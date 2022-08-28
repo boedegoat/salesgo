@@ -124,23 +124,21 @@ const CMSContainer = ({ title, children }: Props) => {
                         <h1 className="font-bold text-xl">{title}</h1>
                         <div className="flex items-center space-x-4">
                             {/* NOTIFICATIONS */}
-                            <Dropdown
-                                className="dropdown-end"
-                                contentClassName="w-[400px]"
-                                toggler={
+                            <Dropdown className="dropdown-end">
+                                <Dropdown.Toggler>
                                     <button className="btn btn-sm flex items-center">
                                         <BellIcon className="w-6" />
                                         <span className="ml-1">3</span>
                                     </button>
-                                }
-                            >
-                                <NotificationMenu />
+                                </Dropdown.Toggler>
+                                <Dropdown.Content className="w-[400px]">
+                                    <NotificationMenu />
+                                </Dropdown.Content>
                             </Dropdown>
 
                             {/* AVATAR */}
-                            <Dropdown
-                                className="dropdown-end"
-                                toggler={
+                            <Dropdown className="dropdown-end">
+                                <Dropdown.Toggler>
                                     <RippleButton className="flex items-center space-x-2 rounded-full px-2 py-1 font-semibold">
                                         <div className="avatar online">
                                             <div className="w-9 rounded-full">
@@ -154,16 +152,20 @@ const CMSContainer = ({ title, children }: Props) => {
                                             Admin
                                         </span>
                                     </RippleButton>
-                                }
-                            >
-                                <Dropdown.PageLinkItem href="#" icon={UserIcon}>
-                                    Profile
-                                </Dropdown.PageLinkItem>
-                                <Dropdown.ButtonItem
-                                    icon={ArrowLeftOnRectangleIcon}
-                                >
-                                    Sign Out
-                                </Dropdown.ButtonItem>
+                                </Dropdown.Toggler>
+                                <Dropdown.Content>
+                                    <Dropdown.PageLinkItem
+                                        href="#"
+                                        icon={UserIcon}
+                                    >
+                                        Profile
+                                    </Dropdown.PageLinkItem>
+                                    <Dropdown.ButtonItem
+                                        icon={ArrowLeftOnRectangleIcon}
+                                    >
+                                        Sign Out
+                                    </Dropdown.ButtonItem>
+                                </Dropdown.Content>
                             </Dropdown>
                         </div>
                     </header>

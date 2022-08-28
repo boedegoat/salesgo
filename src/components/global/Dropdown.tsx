@@ -1,12 +1,23 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes } from "react";
+import React, {
+    ButtonHTMLAttributes,
+    DetailedHTMLProps,
+    HTMLAttributes,
+} from "react";
 import classNames from "classnames";
 import PageLink, { PageLinkProps } from "./Link";
 
-interface DropdownProps
-    extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-    toggler: React.ReactNode;
+type DivProps = DetailedHTMLProps<
+    HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+>;
+
+interface DropdownProps extends DivProps {
     children: React.ReactNode;
-    contentClassName?: string;
+    className?: string;
+}
+
+interface ContentProps extends DivProps {
+    className?: string;
 }
 
 interface ItemProps {
@@ -22,24 +33,28 @@ type ButtonItemProps = ItemProps &
 
 type PageLinkItemProps = ItemProps & PageLinkProps;
 
-const Dropdown = ({
-    toggler,
-    children,
-    className,
-    contentClassName,
-    ...divProps
-}: DropdownProps) => {
+const Dropdown = ({ children, className, ...divProps }: DropdownProps) => {
     return (
         <div className={classNames("dropdown", className)} {...divProps}>
-            {toggler}
-            <div
-                className={classNames(
-                    "dropdown-content flex flex-col bg-white w-52 z-[999999] rounded-xl p-2 shadow",
-                    contentClassName
-                )}
-            >
-                {children}
-            </div>
+            {children}
+        </div>
+    );
+};
+
+const Toggler = ({ children }: { children: React.ReactNode }) => {
+    return <label tabIndex={0}>{children}</label>;
+};
+
+const Content = ({ children, className }: ContentProps) => {
+    return (
+        <div
+            tabIndex={0}
+            className={classNames(
+                "dropdown-content flex flex-col bg-white w-52 z-[999999] rounded-xl p-2 shadow",
+                className
+            )}
+        >
+            {children}
         </div>
     );
 };
@@ -79,6 +94,8 @@ const PageLinkItem = ({
     );
 };
 
+Dropdown.Toggler = Toggler;
+Dropdown.Content = Content;
 Dropdown.ButtonItem = ButtonItem;
 Dropdown.PageLinkItem = PageLinkItem;
 
