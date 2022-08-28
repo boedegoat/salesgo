@@ -8,6 +8,19 @@ interface DropdownProps
     children: React.ReactNode;
 }
 
+interface ItemProps {
+    children: React.ReactNode;
+    icon?: any;
+}
+
+type ButtonItemProps = ItemProps &
+    DetailedHTMLProps<
+        ButtonHTMLAttributes<HTMLButtonElement>,
+        HTMLButtonElement
+    >;
+
+type PageLinkItemProps = ItemProps & PageLinkProps;
+
 const Dropdown = ({
     toggler,
     children,
@@ -24,45 +37,36 @@ const Dropdown = ({
     );
 };
 
-interface ButtonItemProps
-    extends DetailedHTMLProps<
-        ButtonHTMLAttributes<HTMLButtonElement>,
-        HTMLButtonElement
-    > {
-    children: React.ReactNode;
-}
+const itemClassName =
+    "w-full text-left p-2 hover:bg-slate-100 rounded-lg flex items-center";
+const itemIconClassName = "w-5 h-5 mr-2";
 
-const ButtonItem = ({ children, className, ...btnProps }: ButtonItemProps) => {
+const ButtonItem = ({
+    children,
+    className,
+    icon: Icon,
+    ...btnProps
+}: ButtonItemProps) => {
     return (
-        <button
-            className={classNames(
-                "w-full text-left p-2 hover:bg-slate-100 rounded-lg",
-                className
-            )}
-            {...btnProps}
-        >
+        <button className={classNames(itemClassName, className)} {...btnProps}>
+            <Icon className={itemIconClassName} />
             {children}
         </button>
     );
 };
 
-interface PageLinkItemProps extends PageLinkProps {
-    children: React.ReactNode;
-}
-
 const PageLinkItem = ({
     children,
     className,
+    icon: Icon,
     ...pageLinkProps
 }: PageLinkItemProps) => {
     return (
         <PageLink
-            className={classNames(
-                "w-full text-left p-2 hover:bg-slate-100 rounded-lg",
-                className
-            )}
+            className={classNames(itemClassName, className)}
             {...pageLinkProps}
         >
+            <Icon className={itemIconClassName} />
             {children}
         </PageLink>
     );

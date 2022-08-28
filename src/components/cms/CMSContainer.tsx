@@ -3,19 +3,22 @@ import Head from "next/head";
 import classNames from "classnames";
 
 // Icons
-import Home from "@mui/icons-material/Home";
-import HomeOutlined from "@mui/icons-material/HomeOutlined";
-import KeyboardDoubleArrowLeft from "@mui/icons-material/KeyboardDoubleArrowLeft";
-import KeyboardDoubleArrowRight from "@mui/icons-material/KeyboardDoubleArrowRight";
-import NotificationsOutlined from "@mui/icons-material/NotificationsOutlined";
-import Person from "@mui/icons-material/Person";
-import PersonOutlined from "@mui/icons-material/PersonOutlined";
-import Settings from "@mui/icons-material/Settings";
-import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
-import Store from "@mui/icons-material/Store";
-import StoreOutlined from "@mui/icons-material/StoreOutlined";
-import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
-import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
+import {
+    ArrowLeftOnRectangleIcon,
+    UserIcon,
+    BellIcon,
+    HomeIcon as HomeIconOutlined,
+    BuildingStorefrontIcon as StoreIconOutlined,
+    UserGroupIcon as UserGroupIconOutlined,
+    Cog6ToothIcon as SettingsIconOutlined,
+} from "@heroicons/react/24/outline";
+import {
+    HomeIcon,
+    ChevronLeftIcon,
+    BuildingStorefrontIcon as StoreIcon,
+    UserGroupIcon,
+    Cog6ToothIcon as SettingsIcon,
+} from "@heroicons/react/24/solid";
 
 // Components
 import { RippleButton, Dropdown } from "@/components";
@@ -40,23 +43,29 @@ const CMSContainer = ({ title, children }: Props) => {
                 {/* NAVIGATION */}
                 <nav
                     className={classNames(
-                        "flex flex-col h-screen py-11 border-r-2 border-slate-100 overflow-x-hidden overflow-y-auto transition-all ease-out",
+                        "flex flex-col h-screen py-11 border-r-2 border-slate-100 transition-all ease-out",
                         navMinimized ? "px-3" : "px-10"
                     )}
                     style={{ width: navMinimized ? "5%" : "30%" }}
                 >
                     {/* TOP PART */}
                     {/* MINIMIZE NAV BUTTON */}
-                    <RippleButton
-                        className="px-2 rounded-full py-1 self-start mb-6"
-                        onClick={() => setNavMinimized(!navMinimized)}
+                    <div
+                        className="tooltip tooltip-right self-start mb-6"
+                        data-tip={navMinimized ? "Expand" : "Minimize"}
                     >
-                        {navMinimized ? (
-                            <KeyboardDoubleArrowRight />
-                        ) : (
-                            <KeyboardDoubleArrowLeft />
-                        )}
-                    </RippleButton>
+                        <RippleButton
+                            className="px-2 rounded-full py-2"
+                            onClick={() => setNavMinimized(!navMinimized)}
+                        >
+                            <ChevronLeftIcon
+                                className={classNames(
+                                    "w-6 transform transition-transform ease-out",
+                                    navMinimized ? "rotate-180" : "rotate-0"
+                                )}
+                            />
+                        </RippleButton>
+                    </div>
 
                     {/* PAGE LINKS */}
                     <div className="flex flex-col">
@@ -64,37 +73,37 @@ const CMSContainer = ({ title, children }: Props) => {
                             active={true}
                             href="/overview"
                             label="Overview"
-                            icon={HomeOutlined}
-                            activeIcon={Home}
+                            icon={HomeIconOutlined}
+                            activeIcon={HomeIcon}
                             navMinimized={navMinimized}
                         />
                         <NavLink
                             active={false}
                             href="/stores"
                             label="Toko"
-                            icon={StoreOutlined}
-                            activeIcon={Store}
+                            icon={StoreIconOutlined}
+                            activeIcon={StoreIcon}
                             navMinimized={navMinimized}
                         />
                         <NavLink
                             active={false}
                             href="/users"
-                            icon={PersonOutlined}
-                            activeIcon={Person}
+                            icon={UserGroupIconOutlined}
+                            activeIcon={UserGroupIcon}
                             navMinimized={navMinimized}
                         />
                         <NavLink
                             active={false}
                             href="/settings"
                             label="Pengaturan"
-                            icon={SettingsOutlined}
-                            activeIcon={Settings}
+                            icon={SettingsIconOutlined}
+                            activeIcon={SettingsIcon}
                             navMinimized={navMinimized}
                         />
                     </div>
 
                     {/* DARK MODE TOGGLER */}
-                    <div className="relative p-1 rounded-full bg-slate-200 w-max mt-auto flex items-center">
+                    {/* <div className="relative p-1 rounded-full bg-slate-200 w-max mt-auto flex items-center">
                         <button className="relative z-10 flex items-center justify-center p-1 text-teal-500">
                             <LightModeOutlined fontSize="small" />
                         </button>
@@ -107,7 +116,7 @@ const CMSContainer = ({ title, children }: Props) => {
                             <DarkModeOutlined fontSize="small" />
                         </button>
                         <div className="absolute rounded-full bg-white w-7 h-7 shadow-sm transition-transform ease-out transform translate-x-0"></div>
-                    </div>
+                    </div> */}
                 </nav>
 
                 {/* BODY */}
@@ -117,10 +126,10 @@ const CMSContainer = ({ title, children }: Props) => {
                         <div className="flex items-center space-x-4">
                             {/* NOTIFICATIONS */}
                             <button
-                                className="btn btn-sm"
+                                className="btn btn-sm flex items-center"
                                 onClick={(e) => setNotifEl(e.currentTarget)}
                             >
-                                <NotificationsOutlined fontSize="medium" />
+                                <BellIcon className="w-6" />
                                 <span className="ml-1">5</span>
                             </button>
                             {/* TODO: change notifmenu */}
@@ -148,11 +157,12 @@ const CMSContainer = ({ title, children }: Props) => {
                                     </RippleButton>
                                 }
                             >
-                                {/* TODO: add logo */}
-                                <Dropdown.PageLinkItem href="#">
+                                <Dropdown.PageLinkItem href="#" icon={UserIcon}>
                                     Profile
                                 </Dropdown.PageLinkItem>
-                                <Dropdown.ButtonItem>
+                                <Dropdown.ButtonItem
+                                    icon={ArrowLeftOnRectangleIcon}
+                                >
                                     Sign Out
                                 </Dropdown.ButtonItem>
                             </Dropdown>

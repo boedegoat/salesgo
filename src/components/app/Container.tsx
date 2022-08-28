@@ -2,10 +2,10 @@ import Head from "next/head";
 import cn from "classnames";
 import Header from "./Header";
 import {
-    ClipboardListIcon,
+    BuildingStorefrontIcon as StoreIcon,
     HomeIcon,
     UserIcon,
-} from "@heroicons/react/outline";
+} from "@heroicons/react/24/outline";
 import { CSSProperties } from "react";
 
 interface Props {
@@ -24,7 +24,7 @@ const bottomNavButtons = [
         label: "Home",
     },
     {
-        Icon: ClipboardListIcon,
+        Icon: StoreIcon,
         label: "List Toko",
     },
     {

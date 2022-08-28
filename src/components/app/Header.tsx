@@ -1,5 +1,5 @@
-import { MoonIcon } from "@heroicons/react/outline";
-import { MoonIcon as MoonIconSolid } from "@heroicons/react/solid";
+import { MoonIcon } from "@heroicons/react/24/outline";
+import { MoonIcon as MoonIconSolid } from "@heroicons/react/24/solid";
 import { useDarkMode } from "@/hooks";
 import { useEffect, useState } from "react";
 import cn from "classnames";

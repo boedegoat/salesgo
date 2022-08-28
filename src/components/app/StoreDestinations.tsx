@@ -2,10 +2,10 @@ import cn from "classnames";
 import {
     ChevronDoubleRightIcon,
     ChevronRightIcon,
-    LoginIcon,
+    ArrowRightOnRectangleIcon,
     MapIcon,
     PlusCircleIcon,
-} from "@heroicons/react/outline";
+} from "@heroicons/react/24/outline";
 import { PageLink } from "@/components";
 import { checkInHandler } from "@/utils/location";
 
@@ -73,7 +73,8 @@ const StoreDestinations = () => {
                                 "flex-[2] bg-teal-100 text-teal-700 dark:bg-slate-700 dark:text-teal-400"
                             )}
                         >
-                            <LoginIcon className="w-5 h-5 mr-2" /> Check In
+                            <ArrowRightOnRectangleIcon className="w-5 h-5 mr-2" />{" "}
+                            Check In
                         </button>
                     </div>
                 </div>

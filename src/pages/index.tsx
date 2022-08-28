@@ -1,4 +1,4 @@
-import { OfficeBuildingIcon as OfficeBuildingIconSolid } from "@heroicons/react/solid";
+import { BuildingOffice2Icon as OfficeIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { Container, PageLink } from "@/components";
 import { isObjectFilled } from "@/utils/object";
@@ -33,7 +33,7 @@ const Home = () => {
                             href="/register-company"
                             className="w-full md:w-max px-5 md:px-7 gradient-button flex items-center justify-center"
                         >
-                            <OfficeBuildingIconSolid className="w-5 h-5 mr-2" />{" "}
+                            <OfficeIcon className="w-5 h-5 mr-2" />{" "}
                             {isObjectFilled(admin) || isObjectFilled(company)
                                 ? "Lanjutkan Pendaftaran"
                                 : "Daftarkan perusahaan Anda"}

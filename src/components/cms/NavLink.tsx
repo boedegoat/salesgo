@@ -1,7 +1,6 @@
-import { PageLink } from "@/components";
 import classNames from "classnames";
 import { capitalize } from "lodash";
-import Tooltip from "@mui/material/Tooltip";
+import { PageLink } from "@/components";
 
 interface Props {
     href: string;
@@ -11,6 +10,8 @@ interface Props {
     active: boolean;
     navMinimized: boolean;
 }
+
+const iconClassName = "w-6";
 
 const NavLink = ({
     href,
@@ -30,25 +31,18 @@ const NavLink = ({
             )}
             href={`/cms${href}`}
         >
-            {navMinimized ? (
-                <Tooltip
-                    title={label}
-                    arrow
-                    placement="right"
-                    componentsProps={{
-                        tooltip: "bg-teal-500 text-white",
-                        arrow: "bg-teal-500",
-                    }}
-                >
-                    <span className="border border-slate-200/50 shadow-sm rounded-xl flex justify-center items-center p-1.5">
-                        {active ? <ActiveIcon /> : <Icon />}
-                    </span>
-                </Tooltip>
-            ) : (
+            <div
+                className={classNames(navMinimized && "tooltip tooltip-right")}
+                data-tip={label}
+            >
                 <span className="border border-slate-200/50 shadow-sm rounded-xl flex justify-center items-center p-1.5">
-                    {active ? <ActiveIcon /> : <Icon />}
+                    {active ? (
+                        <ActiveIcon className={iconClassName} />
+                    ) : (
+                        <Icon className={iconClassName} />
+                    )}
                 </span>
-            )}
+            </div>
             {!navMinimized && <span className="ml-3">{label}</span>}
         </PageLink>
     );
