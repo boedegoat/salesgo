@@ -8,6 +8,7 @@ export { default as Select } from "./global/Select";
 export { default as RoleBadge } from "./global/RoleBadge";
 export { default as Menu } from "./global/Menu";
 export { default as RippleButton } from "./global/RippleButton";
+export { default as Dropdown } from "./global/Dropdown";
 
 export { default as Greetings } from "./app/Greetings";
 export { default as Progress } from "./app/Progress";

@@ -18,7 +18,7 @@ import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
 
 // Components
-import { PageLink, RippleButton } from "@/components";
+import { RippleButton, Dropdown } from "@/components";
 import NotificationMenu from "./NotificationMenu";
 import NavLink from "./NavLink";
 
@@ -123,46 +123,39 @@ const CMSContainer = ({ title, children }: Props) => {
                                 <NotificationsOutlined fontSize="medium" />
                                 <span className="ml-1">5</span>
                             </button>
+                            {/* TODO: change notifmenu */}
                             <NotificationMenu
                                 notifEl={notifEl}
                                 onClose={() => setNotifEl(null)}
                             />
 
                             {/* AVATAR */}
-                            <div className="dropdown dropdown-end">
-                                <RippleButton
-                                    tabIndex={0}
-                                    className="flex items-center space-x-2 rounded-full px-2 py-1 font-semibold"
-                                >
-                                    <div className="avatar online">
-                                        <div className="w-9 rounded-full">
-                                            <img src="https://mui.com/static/images/avatar/1.jpg" />
+                            <Dropdown
+                                className="dropdown-end"
+                                toggler={
+                                    <RippleButton className="flex items-center space-x-2 rounded-full px-2 py-1 font-semibold">
+                                        <div className="avatar online">
+                                            <div className="w-9 rounded-full">
+                                                <img src="https://mui.com/static/images/avatar/1.jpg" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <span className="max-w-[10.5ch] truncate">
-                                        Bhremada Fevreano
-                                    </span>
-                                    <span className="badge bg-teal-500 border-none">
-                                        Admin
-                                    </span>
-                                </RippleButton>
-                                <ul
-                                    tabIndex={0}
-                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[999]"
-                                >
-                                    <li>
-                                        <PageLink href="#">Profile</PageLink>
-                                    </li>
-                                    <li>
-                                        <button>Sign Out</button>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            {/* <AvatarMenu
-                                avatarEl={avatarEl}
-                                onClose={() => setAvatarEl(null)}
-                            /> */}
+                                        <span className="max-w-[10.5ch] truncate">
+                                            Bhremada Fevreano
+                                        </span>
+                                        <span className="badge bg-teal-500 border-none">
+                                            Admin
+                                        </span>
+                                    </RippleButton>
+                                }
+                            >
+                                {/* TODO: add logo */}
+                                <Dropdown.PageLinkItem href="#">
+                                    Profile
+                                </Dropdown.PageLinkItem>
+                                <Dropdown.ButtonItem>
+                                    Sign Out
+                                </Dropdown.ButtonItem>
+                            </Dropdown>
                         </div>
                     </header>
                     <div className="space-y-14">{children}</div>
