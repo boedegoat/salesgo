@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
 import classNames from "classnames";
-import NavLink from "./NavLink";
 
 // Icons
 import Home from "@mui/icons-material/Home";
@@ -19,12 +18,9 @@ import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
 
 // Components
-import Badge from "@mui/material/Badge";
-import IconButton from "@mui/material/IconButton";
-import Avatar from "@mui/material/Avatar";
-import Chip from "@mui/material/Chip";
+import { PageLink, RippleButton } from "@/components";
 import NotificationMenu from "./NotificationMenu";
-import AvatarMenu from "./AvatarMenu";
+import NavLink from "./NavLink";
 
 interface Props {
     title: string;
@@ -34,7 +30,6 @@ interface Props {
 const CMSContainer = ({ title, children }: Props) => {
     const [navMinimized, setNavMinimized] = useState(false);
     const [notifEl, setNotifEl] = useState<null | HTMLElement>(null);
-    const [avatarEl, setAvatarEl] = useState<null | HTMLElement>(null);
 
     return (
         <main className="bg-slate-50">
@@ -52,8 +47,8 @@ const CMSContainer = ({ title, children }: Props) => {
                 >
                     {/* TOP PART */}
                     {/* MINIMIZE NAV BUTTON */}
-                    <IconButton
-                        className="self-start !mb-6"
+                    <RippleButton
+                        className="px-2 rounded-full py-1 self-start mb-6"
                         onClick={() => setNavMinimized(!navMinimized)}
                     >
                         {navMinimized ? (
@@ -61,7 +56,7 @@ const CMSContainer = ({ title, children }: Props) => {
                         ) : (
                             <KeyboardDoubleArrowLeft />
                         )}
-                    </IconButton>
+                    </RippleButton>
 
                     {/* PAGE LINKS */}
                     <div className="flex flex-col">
@@ -119,53 +114,55 @@ const CMSContainer = ({ title, children }: Props) => {
                 <div className="w-full px-20 py-11 h-screen overflow-auto">
                     <header className="flex items-center justify-between mb-10">
                         <h1 className="font-bold text-xl">{title}</h1>
-                        <div className="flex items-center space-x-5">
+                        <div className="flex items-center space-x-4">
                             {/* NOTIFICATIONS */}
-                            <IconButton
+                            <button
+                                className="btn btn-sm"
                                 onClick={(e) => setNotifEl(e.currentTarget)}
                             >
-                                <Badge
-                                    badgeContent={5}
-                                    componentsProps={{
-                                        badge: {
-                                            className: "bg-teal-500 text-white",
-                                        },
-                                    }}
-                                >
-                                    <NotificationsOutlined fontSize="medium" />
-                                </Badge>
-                            </IconButton>
+                                <NotificationsOutlined fontSize="medium" />
+                                <span className="ml-1">5</span>
+                            </button>
                             <NotificationMenu
                                 notifEl={notifEl}
                                 onClose={() => setNotifEl(null)}
                             />
 
                             {/* AVATAR */}
-                            <Chip
-                                avatar={
-                                    <Avatar
-                                        src="https://mui.com/static/images/avatar/1.jpg"
-                                        className="w-8 h-8"
-                                    />
-                                }
-                                label={
-                                    <div>
-                                        <div className="font-semibold max-w-[15ch] truncate">
-                                            Hamid Jaja
-                                        </div>
-                                        <div className="text-xs text-teal-500">
-                                            Supervisor
+                            <div className="dropdown dropdown-end">
+                                <RippleButton
+                                    tabIndex={0}
+                                    className="flex items-center space-x-2 rounded-full px-2 py-1 font-semibold"
+                                >
+                                    <div className="avatar online">
+                                        <div className="w-9 rounded-full">
+                                            <img src="https://mui.com/static/images/avatar/1.jpg" />
                                         </div>
                                     </div>
-                                }
-                                className="font-semibold bg-transparent"
-                                clickable
-                                onClick={(e) => setAvatarEl(e.currentTarget)}
-                            />
-                            <AvatarMenu
+                                    <span className="max-w-[10.5ch] truncate">
+                                        Bhremada Fevreano
+                                    </span>
+                                    <span className="badge bg-teal-500 border-none">
+                                        Admin
+                                    </span>
+                                </RippleButton>
+                                <ul
+                                    tabIndex={0}
+                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[999]"
+                                >
+                                    <li>
+                                        <PageLink href="#">Profile</PageLink>
+                                    </li>
+                                    <li>
+                                        <button>Sign Out</button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            {/* <AvatarMenu
                                 avatarEl={avatarEl}
                                 onClose={() => setAvatarEl(null)}
-                            />
+                            /> */}
                         </div>
                     </header>
                     <div className="space-y-14">{children}</div>
