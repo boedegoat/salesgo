@@ -1,52 +1,4 @@
-// Icons
-import OpenInNewOutlinedIcon from "@mui/icons-material/OpenInNewOutlined";
-
-// Components
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import IconButton from "@mui/material/IconButton";
-
-const columns: GridColDef[] = [
-    { field: "id", headerName: "Nomor", width: 50 },
-    { field: "name", headerName: "Nama Lengkap", width: 250 },
-    {
-        field: "targetVisit",
-        headerName: "Target Kunjungan",
-        type: "number",
-        width: 150,
-    },
-    {
-        field: "actualVisit",
-        headerName: "Kunjungan Sebenarnya",
-        type: "number",
-        width: 200,
-    },
-    {
-        field: "percentVisit",
-        headerName: "Persentase",
-        type: "number",
-        width: 120,
-        valueGetter: (params) =>
-            `${(
-                (params.row.actualVisit / params.row.targetVisit) *
-                100
-            ).toFixed(1)} %`,
-    },
-    {
-        field: "menu",
-        headerName: "",
-        type: "",
-        width: 80,
-        renderCell: () => (
-            <div className="w-full flex justify-end">
-                <IconButton className="">
-                    <OpenInNewOutlinedIcon className="text-slate-500 w-5 h-5" />
-                </IconButton>
-            </div>
-        ),
-    },
-];
-
-const rows = [
+const salesmans = [
     { id: 1, name: "Mang Ujang", targetVisit: 30, actualVisit: 25 },
     { id: 2, name: "Mang Otong", targetVisit: 30, actualVisit: 30 },
     { id: 3, name: "Pak Thrio", targetVisit: 30, actualVisit: 30 },
@@ -57,17 +9,71 @@ const rows = [
 const SalesmanList = () => {
     return (
         <div>
-            <div style={{ height: 400, width: "100%" }}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    isRowSelectable={() => false}
-                    componentsProps={{
-                        cell: {
-                            className: "outline-none",
-                        },
-                    }}
-                />
+            <div className="overflow-x-auto w-full">
+                <table className="table w-full">
+                    {/* <!-- head --> */}
+                    <thead>
+                        <tr>
+                            <th>Nama Lengkap</th>
+                            <th>Target Kunjungan</th>
+                            <th>Kunjungan Sebenarnya</th>
+                            <th>Persentase</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {salesmans.map((salesman) => (
+                            <tr
+                                key={salesman.id}
+                                className="hover cursor-pointer"
+                                onClick={() => {
+                                    alert(salesman.name);
+                                }}
+                            >
+                                <td>
+                                    <div className="font-bold">
+                                        {salesman.name}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div className="font-bold">
+                                        {salesman.targetVisit}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div className="font-bold">
+                                        {salesman.actualVisit}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div className="font-bold">
+                                        {(
+                                            (salesman.actualVisit /
+                                                salesman.targetVisit) *
+                                            100
+                                        ).toFixed(1)}{" "}
+                                        %
+                                    </div>
+                                </td>
+                                <td>
+                                    <button className="btn btn-ghost btn-xs">
+                                        details
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                    {/* <!-- foot --> */}
+                    {/* <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Job</th>
+                            <th>Favorite Color</th>
+                            <th></th>
+                        </tr>
+                    </tfoot> */}
+                </table>
             </div>
         </div>
     );

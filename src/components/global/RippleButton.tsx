@@ -1,32 +1,23 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, useRef } from "react";
-import { useRipple, RippleOptions } from "react-use-ripple";
+import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+import useRipple, { Options as RippleOptions } from "use-ripple-hook";
 
-type ExtendedProps = DetailedHTMLProps<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-> &
-    RippleOptions;
+interface Props
+    extends DetailedHTMLProps<
+        ButtonHTMLAttributes<HTMLButtonElement>,
+        HTMLButtonElement
+    > {
+    options?: RippleOptions;
+}
 
-interface Props extends ExtendedProps {}
-
-const RippleButton = ({
-    children,
-    rippleColor = "rgba(0,0,0,0.1)",
-    rippleSize,
-    animationLength = 500,
-    excludedRefs,
-    ...btnProps
-}: Props) => {
-    const btnRef = useRef<HTMLButtonElement>(null);
-    useRipple(btnRef, {
-        rippleColor,
-        rippleSize,
-        animationLength,
-        excludedRefs,
+const RippleButton = ({ children, options, ...btnProps }: Props) => {
+    const [ripple, event] = useRipple({
+        color: "rgba(0,0,0,0.11)",
+        duration: 500,
+        ...options,
     });
 
     return (
-        <button ref={btnRef} {...btnProps}>
+        <button {...btnProps} ref={ripple} onMouseDown={event}>
             {children}
         </button>
     );

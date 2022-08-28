@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
-import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 
 // Icons
 import {
@@ -41,7 +41,7 @@ const CMSContainer = ({ title, children }: Props) => {
             <div className="flex overflow-hidden">
                 {/* NAVIGATION */}
                 <nav
-                    className={classNames(
+                    className={twMerge(
                         "flex flex-col h-screen py-11 border-r-2 border-slate-100 transition-all ease-out",
                         navMinimized ? "px-3" : "px-10"
                     )}
@@ -58,7 +58,7 @@ const CMSContainer = ({ title, children }: Props) => {
                             onClick={() => setNavMinimized(!navMinimized)}
                         >
                             <ChevronLeftIcon
-                                className={classNames(
+                                className={twMerge(
                                     "w-6 transform transition-transform ease-out",
                                     navMinimized ? "rotate-180" : "rotate-0"
                                 )}
@@ -107,7 +107,7 @@ const CMSContainer = ({ title, children }: Props) => {
                             <LightModeOutlined fontSize="small" />
                         </button>
                         <button
-                            className={classNames(
+                            className={twMerge(
                                 "relative z-10 items-center justify-center p-1 text-slate-500",
                                 navMinimized ? "hidden" : "flex"
                             )}
@@ -131,7 +131,7 @@ const CMSContainer = ({ title, children }: Props) => {
                                         <span className="ml-1">3</span>
                                     </button>
                                 </Dropdown.Toggler>
-                                <Dropdown.Content className="w-[400px]">
+                                <Dropdown.Content className="w-[450px]">
                                     <NotificationMenu />
                                 </Dropdown.Content>
                             </Dropdown>

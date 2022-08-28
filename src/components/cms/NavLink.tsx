@@ -1,5 +1,5 @@
-import classNames from "classnames";
 import { capitalize } from "lodash";
+import { twMerge } from "tailwind-merge";
 import { PageLink } from "@/components";
 
 interface Props {
@@ -25,14 +25,14 @@ const NavLink = ({
 
     return (
         <PageLink
-            className={classNames(
+            className={twMerge(
                 "py-3 font-medium text-lg hover:text-teal-500 flex items-center",
                 active ? "text-teal-500" : "text-slate-500"
             )}
             href={`/cms${href}`}
         >
             <div
-                className={classNames(navMinimized && "tooltip tooltip-right")}
+                className={twMerge(navMinimized && "tooltip tooltip-right")}
                 data-tip={label}
             >
                 <span className="border border-slate-200/50 shadow-sm rounded-xl flex justify-center items-center p-1.5">

@@ -1,11 +1,9 @@
 import dynamic from "next/dynamic";
 
-import TextField from "@mui/material/TextField";
-import { DatePicker } from "@mui/x-date-pickers";
-
 import { CMSContainer } from "@/components/cms";
 import { SalesmanList } from "@/components/cms/overview";
 import { useState } from "react";
+import { format } from "date-fns";
 import { MapPinIcon, UserGroupIcon } from "@heroicons/react/20/solid";
 
 const Map = dynamic(() => import("@/components/cms/overview/Map"), {
@@ -13,7 +11,7 @@ const Map = dynamic(() => import("@/components/cms/overview/Map"), {
 });
 
 const Overview = () => {
-    const [date, setDate] = useState<Date | null>(new Date());
+    const [date, setDate] = useState(new Date());
 
     return (
         <CMSContainer title="Overview">
@@ -53,14 +51,24 @@ const Overview = () => {
                 <div className="mb-5 flex justify-between">
                     <div className="font-semibold text-xl">Daftar Salesman</div>
 
-                    <DatePicker
+                    <input
+                        type="date"
+                        value={format(date, "yyyy-MM-dd")}
+                        onChange={(e) => {
+                            const selectedDate = new Date(e.target.value);
+                            setDate(selectedDate);
+                            alert(selectedDate);
+                        }}
+                        className="rounded-xl focus:ring-teal-500 focus:border-teal-400 cursor-pointer"
+                    />
+                    {/* <DatePicker
                         label="Tanggal"
                         value={date}
                         onChange={(newDate) => {
                             setDate(newDate);
                         }}
                         renderInput={(params) => <TextField {...params} />}
-                    />
+                    /> */}
                 </div>
                 <SalesmanList />
             </section>

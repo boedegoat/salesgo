@@ -1,4 +1,4 @@
-import cn from "classnames";
+import { twMerge } from "tailwind-merge";
 import {
     ChevronDoubleRightIcon,
     ChevronRightIcon,
@@ -54,7 +54,7 @@ const StoreDestinations = () => {
                             onClick={() => {
                                 window.open(store.mapsLink, "_blank");
                             }}
-                            className={cn(
+                            className={twMerge(
                                 "w-full py-2 flex items-center justify-center font-semibold rounded-lg",
                                 "flex-[1] text-slate-600 dark:text-slate-300"
                             )}
@@ -68,7 +68,7 @@ const StoreDestinations = () => {
                                     destination: store.coords,
                                 })
                             }
-                            className={cn(
+                            className={twMerge(
                                 "w-full py-2 flex items-center justify-center font-semibold rounded-lg",
                                 "flex-[2] bg-teal-100 text-teal-700 dark:bg-slate-700 dark:text-teal-400"
                             )}
@@ -85,7 +85,7 @@ const StoreDestinations = () => {
                     </h3>
                     <div className="p-3 flex flex-col space-y-2 h-full">
                         <button
-                            className={cn(
+                            className={twMerge(
                                 "w-full h-full text-sm py-2 flex items-center justify-center font-semibold rounded-lg",
                                 "bg-teal-100 text-teal-700 dark:bg-slate-700 dark:text-teal-400"
                             )}
@@ -94,7 +94,7 @@ const StoreDestinations = () => {
                             Lewati Toko
                         </button>
                         <button
-                            className={cn(
+                            className={twMerge(
                                 "w-full h-full text-sm py-2 flex items-center justify-center font-semibold rounded-lg",
                                 "bg-teal-100 text-teal-700 dark:bg-slate-700 dark:text-teal-400"
                             )}

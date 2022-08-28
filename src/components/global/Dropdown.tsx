@@ -3,7 +3,7 @@ import React, {
     DetailedHTMLProps,
     HTMLAttributes,
 } from "react";
-import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 import PageLink, { PageLinkProps } from "./Link";
 
 type DivProps = DetailedHTMLProps<
@@ -35,7 +35,7 @@ type PageLinkItemProps = ItemProps & PageLinkProps;
 
 const Dropdown = ({ children, className, ...divProps }: DropdownProps) => {
     return (
-        <div className={classNames("dropdown", className)} {...divProps}>
+        <div className={twMerge("dropdown", className)} {...divProps}>
             {children}
         </div>
     );
@@ -49,7 +49,7 @@ const Content = ({ children, className }: ContentProps) => {
     return (
         <div
             tabIndex={0}
-            className={classNames(
+            className={twMerge(
                 "dropdown-content flex flex-col bg-white w-52 z-[999999] rounded-xl p-2 shadow",
                 className
             )}
@@ -70,7 +70,7 @@ const ButtonItem = ({
     ...btnProps
 }: ButtonItemProps) => {
     return (
-        <button className={classNames(itemClassName, className)} {...btnProps}>
+        <button className={twMerge(itemClassName, className)} {...btnProps}>
             <Icon className={itemIconClassName} />
             {children}
         </button>
@@ -85,7 +85,7 @@ const PageLinkItem = ({
 }: PageLinkItemProps) => {
     return (
         <PageLink
-            className={classNames(itemClassName, className)}
+            className={twMerge(itemClassName, className)}
             {...pageLinkProps}
         >
             <Icon className={itemIconClassName} />

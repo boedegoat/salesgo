@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 
 const dummyNotif = [
     {
@@ -37,7 +37,7 @@ const NotificationMenu = () => {
                 {dummyNotif.map((notif, index) => (
                     <div
                         key={index}
-                        className={classNames(
+                        className={twMerge(
                             "flex flex-col items-start p-4 rounded-lg",
                             !notif.read && "bg-teal-100/60"
                         )}

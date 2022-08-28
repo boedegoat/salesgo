@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 import { MoonIcon } from "@heroicons/react/24/outline";
 import { MoonIcon as MoonIconSolid } from "@heroicons/react/24/solid";
 import { useDarkMode } from "@/hooks";
-import { useEffect, useState } from "react";
-import cn from "classnames";
 import { PageLink } from "@/components";
 
 const Header = () => {
@@ -25,7 +25,7 @@ const Header = () => {
 
     return (
         <header
-            className={cn(
+            className={twMerge(
                 "sticky top-0 z-[999] bg-white dark:bg-slate-900/30 dark:backdrop-blur",
                 scrolled && "shadow-sm"
             )}

@@ -4,42 +4,14 @@ import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
-import {
-    createTheme,
-    StyledEngineProvider,
-    ThemeProvider as MuiThemeProvider,
-} from "@mui/material/styles";
 import { createWrapper } from "next-redux-wrapper";
 import { PersistGate } from "redux-persist/integration/react";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers";
 
 import { auth } from "@/store/authSlice";
 import { useGlobalState } from "@/hooks";
 import { getAccessToken } from "@/utils/authToken";
 import { OfflineIndicator } from "@/components";
 import { store, persistor } from "../store";
-
-const rootElement =
-    typeof window !== "undefined" ? document.getElementById("__next") : null;
-
-const theme = createTheme({
-    typography: {
-        fontFamily: "inherit",
-    },
-    components: {
-        MuiPopover: {
-            defaultProps: {
-                container: rootElement,
-            },
-        },
-        MuiPopper: {
-            defaultProps: {
-                container: rootElement,
-            },
-        },
-    },
-});
 
 const MyApp = ({
     Component,
@@ -50,13 +22,7 @@ const MyApp = ({
             <PersistGate loading={null} persistor={persistor}>
                 <Toaster />
                 <OfflineIndicator />
-                <StyledEngineProvider injectFirst>
-                    <MuiThemeProvider theme={theme}>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <MyComponent {...{ Component, ...pageProps }} />
-                        </LocalizationProvider>
-                    </MuiThemeProvider>
-                </StyledEngineProvider>
+                <MyComponent {...{ Component, ...pageProps }} />
             </PersistGate>
         </ThemeProvider>
     );
