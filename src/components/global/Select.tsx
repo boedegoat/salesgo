@@ -5,7 +5,7 @@ import {
     ReactNode,
     SelectHTMLAttributes,
 } from "react";
-import cn from "classnames";
+import { twMerge } from "tailwind-merge";
 
 interface Props
     extends DetailedHTMLProps<
@@ -35,7 +35,7 @@ const Select = forwardRef(
         ref: ForwardedRef<HTMLSelectElement>
     ) => {
         return (
-            <label className={cn("input-group", containerClassName)}>
+            <label className={twMerge("input-group", containerClassName)}>
                 <span>{label}</span>
                 <select {...props} ref={ref}>
                     {children}

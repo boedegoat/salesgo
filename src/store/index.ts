@@ -14,15 +14,18 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import registerCompanyReducer from "./registerCompanySlice";
+import authReducer from "./authSlice";
 
 const reducers = combineReducers({
     registerCompany: registerCompanyReducer,
+    auth: authReducer,
 });
 
 const persistedReducer = persistReducer(
     {
         key: "root",
         storage,
+        blacklist: ["auth"],
     },
     reducers
 );

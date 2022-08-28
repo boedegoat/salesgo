@@ -6,7 +6,11 @@ import {
     Needs,
 } from "@/components";
 
-const Home = Needs(["geolocation"], () => {
+const services = {
+    geolocation: true,
+};
+
+const Home = Needs(services, () => {
     return (
         <Container title="Sales App" wrapper="mobile">
             <Greetings />

@@ -51,7 +51,9 @@ employeesHandler.get(checkAuth("Manager"), async (req, res) => {
     });
 
     sendResponse(res, {
-        employees: employees.map(({ password, ...employee }) => employee),
+        employees: employees.map(
+            ({ password, companyId, ...employee }) => employee
+        ),
         count: employees.length,
     });
 });
@@ -70,8 +72,8 @@ employeesHandler.post(checkAuth("Manager"), async (req, res) => {
         errors.push("Mohon sertakan employeeId");
     }
 
-    const rolesAllowed = Object.values(Role).filter(
-        (role) => role !== "Manager"
+    const rolesAllowed = Object.values(Role).slice(
+        req.employee.role === "Manager" ? 1 : 0
     );
 
     if (!rolesAllowed.includes(employee.role)) {

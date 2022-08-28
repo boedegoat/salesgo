@@ -1,4 +1,5 @@
-import { setCookie } from "cookies-next";
+import axios from "axios";
+import { getCookie, setCookie } from "cookies-next";
 import { NextApiRequest, NextApiResponse } from "next";
 import { createAccessToken, createRefreshToken } from "./jwt";
 
@@ -7,6 +8,35 @@ interface SendAuthToken {
     res: NextApiResponse;
     id: string;
 }
+
+let accessToken = "";
+
+export const setAccessToken = (value: string) => {
+    accessToken = value;
+};
+
+export const getAccessToken = async () => {
+    // check if accessTokenLife is exist in cookie
+    const accessTokenLife = getCookie("accessTokenLife");
+
+    if (accessToken && accessTokenLife) {
+        return accessToken;
+    }
+
+    try {
+        const { data } = await axios.get("/api/auth/refresh-token", {
+            withCredentials: true,
+        });
+
+        setAccessToken(data.accessToken);
+        return accessToken;
+    } catch (err) {
+        // silent error
+        // console.clear();
+        // if refresh token is not exist, then return null
+        return null;
+    }
+};
 
 export const sendAuthToken = ({ req, res, id }: SendAuthToken) => {
     const accessToken = createAccessToken({ id });

@@ -1,11 +1,11 @@
 import NextLink, { LinkProps } from "next/link";
 
-interface Props extends LinkProps {
+export interface PageLinkProps extends LinkProps {
     className?: string;
     children?: React.ReactNode;
 }
 
-const Link = ({ className, children, ...props }: Props) => {
+const Link = ({ className, children, ...props }: PageLinkProps) => {
     return (
         <NextLink {...props}>
             <a className={className}>{children}</a>
