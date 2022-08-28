@@ -32,7 +32,6 @@ interface Props {
 
 const CMSContainer = ({ title, children }: Props) => {
     const [navMinimized, setNavMinimized] = useState(false);
-    const [notifEl, setNotifEl] = useState<null | HTMLElement>(null);
 
     return (
         <main className="bg-slate-50">
@@ -125,18 +124,18 @@ const CMSContainer = ({ title, children }: Props) => {
                         <h1 className="font-bold text-xl">{title}</h1>
                         <div className="flex items-center space-x-4">
                             {/* NOTIFICATIONS */}
-                            <button
-                                className="btn btn-sm flex items-center"
-                                onClick={(e) => setNotifEl(e.currentTarget)}
+                            <Dropdown
+                                className="dropdown-end"
+                                contentClassName="w-[400px]"
+                                toggler={
+                                    <button className="btn btn-sm flex items-center">
+                                        <BellIcon className="w-6" />
+                                        <span className="ml-1">3</span>
+                                    </button>
+                                }
                             >
-                                <BellIcon className="w-6" />
-                                <span className="ml-1">5</span>
-                            </button>
-                            {/* TODO: change notifmenu */}
-                            <NotificationMenu
-                                notifEl={notifEl}
-                                onClose={() => setNotifEl(null)}
-                            />
+                                <NotificationMenu />
+                            </Dropdown>
 
                             {/* AVATAR */}
                             <Dropdown

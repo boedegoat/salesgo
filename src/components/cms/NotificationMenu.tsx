@@ -1,11 +1,4 @@
-import ListItem from "@mui/material/ListItem";
 import classNames from "classnames";
-import { Menu } from "@/components";
-
-interface Props {
-    notifEl: HTMLElement | null;
-    onClose: () => void;
-}
 
 const dummyNotif = [
     {
@@ -31,9 +24,9 @@ const dummyNotif = [
     },
 ];
 
-const NotificationMenu = ({ notifEl, onClose }: Props) => {
+const NotificationMenu = () => {
     return (
-        <Menu anchorEl={notifEl} onClose={onClose}>
+        <>
             <div className="p-4 flex justify-between">
                 <h3 className="font-bold">Notifikasi</h3>
                 <button className="text-sm font-medium text-slate-600 hover:text-teal-500">
@@ -42,12 +35,11 @@ const NotificationMenu = ({ notifEl, onClose }: Props) => {
             </div>
             <div className="text-sm">
                 {dummyNotif.map((notif, index) => (
-                    <ListItem
+                    <div
                         key={index}
-                        divider
                         className={classNames(
-                            "flex flex-col items-start",
-                            !notif.read && "bg-teal-50/70"
+                            "flex flex-col items-start p-4 rounded-lg",
+                            !notif.read && "bg-teal-100/60"
                         )}
                     >
                         <div className="font-medium">
@@ -62,10 +54,10 @@ const NotificationMenu = ({ notifEl, onClose }: Props) => {
                         <div className="text-xs text-slate-500">
                             {notif.time}
                         </div>
-                    </ListItem>
+                    </div>
                 ))}
             </div>
-        </Menu>
+        </>
     );
 };
 

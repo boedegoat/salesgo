@@ -6,6 +6,7 @@ interface DropdownProps
     extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     toggler: React.ReactNode;
     children: React.ReactNode;
+    contentClassName?: string;
 }
 
 interface ItemProps {
@@ -25,12 +26,18 @@ const Dropdown = ({
     toggler,
     children,
     className,
+    contentClassName,
     ...divProps
 }: DropdownProps) => {
     return (
         <div className={classNames("dropdown", className)} {...divProps}>
             {toggler}
-            <div className="dropdown-content flex flex-col bg-white w-52 z-[999] rounded-xl p-2 shadow">
+            <div
+                className={classNames(
+                    "dropdown-content flex flex-col bg-white w-52 z-[999999] rounded-xl p-2 shadow",
+                    contentClassName
+                )}
+            >
                 {children}
             </div>
         </div>
