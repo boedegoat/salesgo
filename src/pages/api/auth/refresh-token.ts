@@ -1,7 +1,6 @@
 import { JwtPayload } from "jsonwebtoken";
 import { setCookie } from "cookies-next";
-import { StatusCodes } from "http-status-codes";
-import { ApiError, handler, sendResponse } from "@/utils/api";
+import { handler, sendResponse } from "@/utils/api";
 import { createAccessToken, verifyRefreshToken } from "@/utils/jwt";
 
 const refreshToken = handler();
@@ -9,8 +8,10 @@ const refreshToken = handler();
 refreshToken.get((req, res) => {
     const { refreshToken } = req.cookies;
 
+    // if refreshToken is not exist (means user is not signed in), just end the response
     if (!refreshToken) {
-        throw new ApiError("You are signed out", StatusCodes.UNAUTHORIZED);
+        res.end();
+        return;
     }
 
     const employeePayload = verifyRefreshToken(refreshToken) as JwtPayload;
