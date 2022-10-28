@@ -1,22 +1,21 @@
 import { useState } from "react";
 import Head from "next/head";
-import { twMerge } from "tailwind-merge";
 
 // Icons
 import {
     ArrowLeftOnRectangleIcon,
     UserIcon,
     BellIcon,
-    HomeIcon as HomeIconOutlined,
     BuildingStorefrontIcon as StoreIconOutlined,
     UserGroupIcon as UserGroupIconOutlined,
     Cog6ToothIcon as SettingsIconOutlined,
+    Squares2X2Icon as Squares2X2IconOutlined,
 } from "@heroicons/react/24/outline";
 import {
-    HomeIcon,
-    ChevronLeftIcon,
+    Squares2X2Icon,
     BuildingStorefrontIcon as StoreIcon,
     UserGroupIcon,
+    Bars3Icon,
     Cog6ToothIcon as SettingsIcon,
 } from "@heroicons/react/24/solid";
 
@@ -34,142 +33,119 @@ const CMSContainer = ({ title, children }: Props) => {
     const [navMinimized, setNavMinimized] = useState(false);
 
     return (
-        <main className="bg-slate-50">
+        <main>
             <Head>
                 <title>{`${title} - SalesGo CMS`}</title>
             </Head>
-            <div className="flex overflow-hidden">
-                {/* NAVIGATION */}
-                <nav
-                    className={twMerge(
-                        "flex flex-col h-screen py-11 border-r-2 border-slate-100 transition-all ease-out",
-                        navMinimized ? "px-3" : "px-10"
-                    )}
-                    style={{ width: navMinimized ? "5%" : "30%" }}
-                >
-                    {/* TOP PART */}
-                    {/* MINIMIZE NAV BUTTON */}
-                    <div
-                        className="tooltip tooltip-right self-start mb-6"
-                        data-tip={navMinimized ? "Expand" : "Minimize"}
-                    >
-                        <RippleButton
-                            className="px-2 rounded-full py-2"
-                            onClick={() => setNavMinimized(!navMinimized)}
-                        >
-                            <ChevronLeftIcon
-                                className={twMerge(
-                                    "w-6 transform transition-transform ease-out",
-                                    navMinimized ? "rotate-180" : "rotate-0"
-                                )}
-                            />
-                        </RippleButton>
-                    </div>
-
-                    {/* PAGE LINKS */}
-                    <div className="flex flex-col">
-                        <NavLink
-                            active={true}
-                            href="/overview"
-                            label="Overview"
-                            icon={HomeIconOutlined}
-                            activeIcon={HomeIcon}
-                            navMinimized={navMinimized}
-                        />
-                        <NavLink
-                            active={false}
-                            href="/stores"
-                            label="Toko"
-                            icon={StoreIconOutlined}
-                            activeIcon={StoreIcon}
-                            navMinimized={navMinimized}
-                        />
-                        <NavLink
-                            active={false}
-                            href="/users"
-                            icon={UserGroupIconOutlined}
-                            activeIcon={UserGroupIcon}
-                            navMinimized={navMinimized}
-                        />
-                        <NavLink
-                            active={false}
-                            href="/settings"
-                            label="Pengaturan"
-                            icon={SettingsIconOutlined}
-                            activeIcon={SettingsIcon}
-                            navMinimized={navMinimized}
-                        />
-                    </div>
-
-                    {/* DARK MODE TOGGLER */}
-                    {/* <div className="relative p-1 rounded-full bg-slate-200 w-max mt-auto flex items-center">
-                        <button className="relative z-10 flex items-center justify-center p-1 text-teal-500">
-                            <LightModeOutlined fontSize="small" />
-                        </button>
+            <div className="overflow-hidden flex flex-col h-screen">
+                {/* HEADER */}
+                <header className="bg-white px-6 py-3 flex justify-between items-center shadow-lg shadow-slate-100">
+                    <div className="flex items-center space-x-4">
                         <button
-                            className={twMerge(
-                                "relative z-10 items-center justify-center p-1 text-slate-500",
-                                navMinimized ? "hidden" : "flex"
-                            )}
+                            onClick={() => setNavMinimized(!navMinimized)}
+                            className="btn btn-circle btn-ghost btn-sm"
                         >
-                            <DarkModeOutlined fontSize="small" />
+                            <Bars3Icon className="w-6" />
                         </button>
-                        <div className="absolute rounded-full bg-white w-7 h-7 shadow-sm transition-transform ease-out transform translate-x-0"></div>
-                    </div> */}
-                </nav>
-
-                {/* BODY */}
-                <div className="w-full px-20 py-11 h-screen overflow-auto">
-                    <header className="flex items-center justify-between mb-10">
-                        <h1 className="font-bold text-xl">{title}</h1>
-                        <div className="flex items-center space-x-4">
-                            {/* NOTIFICATIONS */}
-                            <Dropdown className="dropdown-end">
-                                <Dropdown.Toggler>
-                                    <button className="btn btn-sm flex items-center">
-                                        <BellIcon className="w-6" />
-                                        <span className="ml-1">3</span>
+                        <h1 className="font-bold">⚡SalesGo</h1>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                        {/* NOTIFICATIONS */}
+                        <Dropdown className="dropdown-end">
+                            <Dropdown.Toggler>
+                                <div className="indicator">
+                                    <span className="indicator-item badge badge-sm badge-secondary">
+                                        3
+                                    </span>
+                                    <button className="btn btn-ghost btn-xs btn-circle flex items-center">
+                                        <BellIcon className="w-5" />
                                     </button>
-                                </Dropdown.Toggler>
-                                <Dropdown.Content className="w-[450px]">
-                                    <NotificationMenu />
-                                </Dropdown.Content>
-                            </Dropdown>
+                                </div>
+                            </Dropdown.Toggler>
+                            <Dropdown.Content className="w-[450px]">
+                                <NotificationMenu />
+                            </Dropdown.Content>
+                        </Dropdown>
 
-                            {/* AVATAR */}
-                            <Dropdown className="dropdown-end">
-                                <Dropdown.Toggler>
-                                    <RippleButton className="flex items-center space-x-2 rounded-full px-2 py-1 font-semibold">
-                                        <div className="avatar online">
-                                            <div className="w-9 rounded-full">
-                                                <img src="https://mui.com/static/images/avatar/1.jpg" />
-                                            </div>
+                        {/* AVATAR */}
+                        <Dropdown className="dropdown-end">
+                            <Dropdown.Toggler>
+                                <RippleButton className="flex items-center space-x-2 rounded-full px-2 py-1 font-semibold">
+                                    <div className="avatar online">
+                                        <div className="w-6 rounded-full">
+                                            <img src="https://mui.com/static/images/avatar/1.jpg" />
                                         </div>
-                                        <span className="max-w-[10.5ch] truncate">
-                                            Bhremada Fevreano
-                                        </span>
-                                        <span className="badge bg-teal-500 border-none">
-                                            Admin
-                                        </span>
-                                    </RippleButton>
-                                </Dropdown.Toggler>
-                                <Dropdown.Content>
-                                    <Dropdown.PageLinkItem
-                                        href="#"
-                                        icon={UserIcon}
-                                    >
-                                        Profile
-                                    </Dropdown.PageLinkItem>
-                                    <Dropdown.ButtonItem
-                                        icon={ArrowLeftOnRectangleIcon}
-                                    >
-                                        Sign Out
-                                    </Dropdown.ButtonItem>
-                                </Dropdown.Content>
-                            </Dropdown>
+                                    </div>
+                                    <span className="max-w-[10.5ch] truncate text-sm">
+                                        Bhremada Fevreano
+                                    </span>
+                                    <span className="badge bg-primary border-none text-xs">
+                                        Admin
+                                    </span>
+                                </RippleButton>
+                            </Dropdown.Toggler>
+                            <Dropdown.Content>
+                                <Dropdown.PageLinkItem href="#" icon={UserIcon}>
+                                    Profile
+                                </Dropdown.PageLinkItem>
+                                <Dropdown.ButtonItem
+                                    icon={ArrowLeftOnRectangleIcon}
+                                >
+                                    Sign Out
+                                </Dropdown.ButtonItem>
+                            </Dropdown.Content>
+                        </Dropdown>
+                    </div>
+                </header>
+                <div className="flex h-full">
+                    {/* NAVIGATION */}
+                    <nav
+                        className="flex flex-col h-full py-10 border-r-2 border-slate-100 transition-all ease-out px-6"
+                        style={{ width: navMinimized ? "7%" : "24%" }}
+                    >
+                        {/* PAGE LINKS */}
+                        <div className="flex flex-col space-y-7">
+                            <NavLink
+                                active={true}
+                                href="/overview"
+                                label="Overview"
+                                icon={Squares2X2IconOutlined}
+                                activeIcon={Squares2X2Icon}
+                                navMinimized={navMinimized}
+                            />
+                            <NavLink
+                                active={false}
+                                href="/stores"
+                                label="Toko"
+                                icon={StoreIconOutlined}
+                                activeIcon={StoreIcon}
+                                navMinimized={navMinimized}
+                            />
+                            <NavLink
+                                active={false}
+                                href="/users"
+                                icon={UserGroupIconOutlined}
+                                activeIcon={UserGroupIcon}
+                                navMinimized={navMinimized}
+                            />
+                            <NavLink
+                                active={false}
+                                href="/settings"
+                                label="Pengaturan"
+                                icon={SettingsIconOutlined}
+                                activeIcon={SettingsIcon}
+                                navMinimized={navMinimized}
+                            />
                         </div>
-                    </header>
-                    <div className="space-y-14">{children}</div>
+                    </nav>
+
+                    {/* BODY */}
+                    <div className="w-full overflow-auto rounded-l-2xl">
+                        <header className="flex p-10 pb-0 items-center justify-between">
+                            <h1 className="font-bold text-3xl">{title}</h1>
+                        </header>
+                        <div className="space-y-14 p-10 mb-20">{children}</div>
+                    </div>
                 </div>
             </div>
         </main>

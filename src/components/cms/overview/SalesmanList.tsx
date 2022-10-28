@@ -19,8 +19,8 @@ const SalesmanList = () => {
 
     return (
         <div>
-            <div className="overflow-x-auto w-full">
-                <table className="table w-full">
+            <div className="overflow-x-auto rounded-lg w-full shadow-xl shadow-slate-200">
+                <table className="table w-full bg-white">
                     {/* <!-- head --> */}
                     <thead>
                         <tr>
@@ -31,7 +31,7 @@ const SalesmanList = () => {
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="bg-white">
                         {salesmans.map((salesman) => (
                             <tr
                                 key={salesman.id}

@@ -1,12 +1,11 @@
 import dynamic from "next/dynamic";
-
-import { CMSContainer } from "@/components/cms";
-import { SalesmanList } from "@/components/cms/overview";
 import { useState } from "react";
 import { format } from "date-fns";
 import { MapPinIcon, UserGroupIcon } from "@heroicons/react/20/solid";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 
+import { CMSContainer } from "@/components/cms";
+import { SalesmanList } from "@/components/cms/overview";
 const Map = dynamic(() => import("@/components/cms/overview/Map"), {
     ssr: false,
 });
@@ -20,7 +19,7 @@ const Overview = () => {
             <section className="flex space-x-8">
                 <div className="space-y-8 w-[40%]">
                     {/* TOTAL SALESMAN VISIT */}
-                    <div className="p-8 rounded-xl shadow-xl shadow-slate-200">
+                    <div className="bg-white p-8 rounded-xl shadow-xl shadow-slate-200">
                         <div className="font-semibold text-lg flex items-center">
                             <MapPinIcon className="w-5 mr-1" />
                             Total Kunjungan
@@ -30,11 +29,11 @@ const Overview = () => {
                             <span className="text-lg text-slate-500">/150</span>
                         </div>
                         <div className="font-medium mt-3">
-                            <span className="text-teal-500">76%</span> vs target
+                            <span className="text-primary">76%</span> vs target
                         </div>
                     </div>
                     {/* SALESMAN TOTAL */}
-                    <div className="p-8 rounded-xl shadow-xl shadow-slate-200">
+                    <div className="bg-white p-8 rounded-xl shadow-xl shadow-slate-200">
                         <div className="font-semibold text-lg flex items-center">
                             <UserGroupIcon className="w-5 mr-1" />
                             Total Salesman

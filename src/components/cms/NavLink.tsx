@@ -26,7 +26,7 @@ const NavLink = ({
     return (
         <PageLink
             className={twMerge(
-                "py-3 font-medium text-lg hover:text-teal-500 flex items-center",
+                "font-medium text-lg hover:text-teal-500 flex items-center",
                 active ? "text-teal-500" : "text-slate-500"
             )}
             href={`/cms${href}`}
