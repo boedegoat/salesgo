@@ -1,41 +1,31 @@
 import { useState } from "react";
 import Head from "next/head";
-
-// Icons
 import {
     ArrowLeftOnRectangleIcon,
     UserIcon,
     BellIcon,
-    BuildingStorefrontIcon as StoreIconOutlined,
-    UserGroupIcon as UserGroupIconOutlined,
-    Cog6ToothIcon as SettingsIconOutlined,
-    Squares2X2Icon as Squares2X2IconOutlined,
-} from "@heroicons/react/24/outline";
-import {
-    Squares2X2Icon,
-    BuildingStorefrontIcon as StoreIcon,
-    UserGroupIcon,
     Bars3Icon,
-    Cog6ToothIcon as SettingsIcon,
-} from "@heroicons/react/24/solid";
+    ArrowLeftIcon,
+} from "@heroicons/react/24/outline";
+import { twMerge } from "tailwind-merge";
 
-// Components
-import { RippleButton, Dropdown } from "@/components";
-import NotificationMenu from "./NotificationMenu";
-import NavLink from "./NavLink";
+import { RippleButton, Dropdown, PageLink } from "@/components";
+import { NotificationMenu, NavLink } from "./container";
+import { pages } from "@/constants/cms";
+import { useCMSPage } from "@/hooks";
 
 interface Props {
-    title: string;
     children: React.ReactNode;
 }
 
-const CMSContainer = ({ title, children }: Props) => {
+const CMSContainer = ({ children }: Props) => {
     const [navMinimized, setNavMinimized] = useState(false);
+    const { page, nestedPages } = useCMSPage();
 
     return (
         <main>
             <Head>
-                <title>{`${title} - SalesGo CMS`}</title>
+                <title>{`${page.label} - SalesGo CMS`}</title>
             </Head>
             <div className="overflow-hidden flex flex-col h-screen">
                 {/* HEADER */}
@@ -101,48 +91,48 @@ const CMSContainer = ({ title, children }: Props) => {
                     {/* NAVIGATION */}
                     <nav
                         className="flex flex-col h-full py-10 border-r-2 border-slate-100 transition-all ease-out px-6"
-                        style={{ width: navMinimized ? "7%" : "24%" }}
+                        style={{ width: navMinimized ? "7%" : "25%" }}
                     >
                         {/* PAGE LINKS */}
                         <div className="flex flex-col space-y-7">
-                            <NavLink
-                                active={true}
-                                href="/overview"
-                                label="Overview"
-                                icon={Squares2X2IconOutlined}
-                                activeIcon={Squares2X2Icon}
-                                navMinimized={navMinimized}
-                            />
-                            <NavLink
-                                active={false}
-                                href="/stores"
-                                label="Toko"
-                                icon={StoreIconOutlined}
-                                activeIcon={StoreIcon}
-                                navMinimized={navMinimized}
-                            />
-                            <NavLink
-                                active={false}
-                                href="/users"
-                                icon={UserGroupIconOutlined}
-                                activeIcon={UserGroupIcon}
-                                navMinimized={navMinimized}
-                            />
-                            <NavLink
-                                active={false}
-                                href="/settings"
-                                label="Pengaturan"
-                                icon={SettingsIconOutlined}
-                                activeIcon={SettingsIcon}
-                                navMinimized={navMinimized}
-                            />
+                            {nestedPages && (
+                                <PageLink
+                                    href="/cms"
+                                    className="btn btn-ghost border-slate-100 text-slate-500 flex justify-start items-center space-x-4"
+                                >
+                                    <ArrowLeftIcon className="w-5" />{" "}
+                                    <span
+                                        className={twMerge(
+                                            "normal-case transition-opacity",
+                                            navMinimized
+                                                ? "opacity-0"
+                                                : "opacity-100"
+                                        )}
+                                    >
+                                        Back
+                                    </span>
+                                </PageLink>
+                            )}
+                            {(nestedPages ?? pages).map((item) => (
+                                <NavLink
+                                    key={item.href}
+                                    {...item}
+                                    href={
+                                        nestedPages
+                                            ? page.root + item.href
+                                            : item.href
+                                    }
+                                    active={item.href === page.href}
+                                    navMinimized={navMinimized}
+                                />
+                            ))}
                         </div>
                     </nav>
 
                     {/* BODY */}
                     <div className="w-full overflow-auto rounded-l-2xl">
                         <header className="flex p-10 pb-0 items-center justify-between">
-                            <h1 className="font-bold text-3xl">{title}</h1>
+                            <h1 className="font-bold text-3xl">{page.label}</h1>
                         </header>
                         <div className="space-y-14 p-10 mb-20">{children}</div>
                     </div>

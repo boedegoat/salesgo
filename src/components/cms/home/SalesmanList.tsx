@@ -1,16 +1,9 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
+
 import { Modal } from "@/components";
-
-const salesmans = [
-    { id: 1, name: "Mang Ujang", targetVisit: 30, actualVisit: 25 },
-    { id: 2, name: "Mang Otong", targetVisit: 30, actualVisit: 30 },
-    { id: 3, name: "Pak Thrio", targetVisit: 30, actualVisit: 30 },
-    { id: 4, name: "Bung Karno", targetVisit: 30, actualVisit: 30 },
-    { id: 5, name: "Mang Udin", targetVisit: 30, actualVisit: 20 },
-];
-
-const Map = dynamic(() => import("@/components/cms/overview/Map"), {
+import { salesmans } from "@/constants/dummy";
+const Map = dynamic(() => import("@/components/cms/home/Map"), {
     ssr: false,
 });
 

@@ -5,16 +5,16 @@ import { MapPinIcon, UserGroupIcon } from "@heroicons/react/20/solid";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 
 import { CMSContainer } from "@/components/cms";
-import { SalesmanList } from "@/components/cms/overview";
-const Map = dynamic(() => import("@/components/cms/overview/Map"), {
+import { SalesmanList } from "@/components/cms/home";
+const Map = dynamic(() => import("@/components/cms/home/Map"), {
     ssr: false,
 });
 
-const Overview = () => {
+const Home = () => {
     const [date, setDate] = useState(new Date());
 
     return (
-        <CMSContainer title="Overview">
+        <CMSContainer>
             {/* SUMMARY SECTION */}
             <section className="flex space-x-8">
                 <div className="space-y-8 w-[40%]">
@@ -49,7 +49,9 @@ const Overview = () => {
             {/* SALESMAN LIST */}
             <section>
                 <div className="mb-5 flex justify-between">
-                    <div className="font-semibold text-xl">Daftar Salesman</div>
+                    <div className="font-semibold text-xl">
+                        Daftar Salesman (5)
+                    </div>
 
                     <label className="flex items-center space-x-4">
                         <span className="font-medium flex items-center">
@@ -73,4 +75,4 @@ const Overview = () => {
     );
 };
 
-export default Overview;
+export default Home;
